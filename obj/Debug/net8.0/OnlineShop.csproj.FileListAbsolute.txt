@@ -28,3 +28,4 @@ C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\obj\Debug\net8.0\refint\Onlin
 C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\obj\Debug\net8.0\OnlineShop.pdb
 C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\obj\Debug\net8.0\OnlineShop.genruntimeconfig.cache
 C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\obj\Debug\net8.0\ref\OnlineShop.dll
+C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\obj\Debug\net8.0\OnlineShop.sourcelink.json
