@@ -1,10 +1,6 @@
 {
   "Files": [
     {
-      "Id": "C:\\Users\\dpopov\\Source\\Repos\\OnlineShop\\OnlineShop\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\OnlineShop.bundle.scp.css",
-      "PackagePath": "staticwebassets\\OnlineShop.bundle.scp.css"
-    },
-    {
       "Id": "C:\\Users\\dpopov\\Source\\Repos\\OnlineShop\\OnlineShop\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

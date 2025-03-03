@@ -14,5 +14,7 @@
         public UserRole Role { get; set; }
         public int ShopId { get; set; }
         public Shop Shop { get; set; }
+        public int? ManagedShopId { get; set; }
+        public Shop? ManagedShop { get; set; }
     }
 }
