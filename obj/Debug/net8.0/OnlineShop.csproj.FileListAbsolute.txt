@@ -29,3 +29,4 @@ C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\obj\Debug\net8.0\OnlineShop.p
 C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\obj\Debug\net8.0\OnlineShop.genruntimeconfig.cache
 C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\obj\Debug\net8.0\ref\OnlineShop.dll
 C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\obj\Debug\net8.0\OnlineShop.sourcelink.json
+C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\obj\Debug\net8.0\OnlineShop.csproj.AssemblyReference.cache

@@ -1,6 +1,6 @@
 ﻿namespace OnlineShop.Models
 {
-    enum UserRole 
+    public enum UserRole 
     {
         Admin,
         Manager,
@@ -11,7 +11,7 @@
         public int Id { get; set; }
         public int Name { get; set; }
         public string Password { get; set; }
-        public int MyProperty { get; set; }
+        public UserRole Role { get; set; }
         public int ShopId { get; set; }
         public Shop Shop { get; set; }
     }
