@@ -165,3 +165,5 @@ C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\bin\Debug\net8.0\runtimes\win
 C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\bin\Debug\net8.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\obj\Debug\net8.0\OnlineShop.csproj.Up2Date
+C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\bin\Debug\net8.0\MediatR.dll
+C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\bin\Debug\net8.0\MediatR.Contracts.dll

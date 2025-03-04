@@ -1,0 +1,13 @@
+﻿using MediatR;
+using OnlineShop.Models;
+
+namespace OnlineShop.Mediator.Commands.ProductCommands
+{
+    public class UpdateProductCommand : IRequest<Product?>
+    {
+        public int Id { get; set; }
+        public string? Name { get; set; }
+        public int? Quantity { get; set; }
+        public int? Price { get; set; }
+    }
+}

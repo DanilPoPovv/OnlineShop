@@ -1,0 +1,12 @@
+﻿using MediatR;
+using OnlineShop.Models;
+
+namespace OnlineShop.Mediator.Commands.ShopCommands
+{
+    public class UpdateShopCommand : IRequest<Shop?>
+    {
+        public int ShopId { get; set; }
+        public string? Name { get; set; }
+        public int? ManagerId { get; set; }
+    }
+}

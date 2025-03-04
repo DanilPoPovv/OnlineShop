@@ -11,7 +11,7 @@ using OnlineShop.DatabaseContext;
 namespace OnlineShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250303085335_InitialCreate")]
+    [Migration("20250304045422_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -24,7 +24,7 @@ namespace OnlineShop.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("OnlineShop.Models.Product", b =>
+            modelBuilder.Entity("OnlineShop.Models.ProductCommands", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,7 +60,7 @@ namespace OnlineShop.Migrations
                         });
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.Shop", b =>
+            modelBuilder.Entity("OnlineShop.Models.ShopCommands", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -84,7 +84,7 @@ namespace OnlineShop.Migrations
                     b.ToTable("Shops");
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.User", b =>
+            modelBuilder.Entity("OnlineShop.Models.UserCommands", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -95,9 +95,10 @@ namespace OnlineShop.Migrations
                     b.Property<int?>("ManagedShopId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Name")
+                    b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("int");
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Password")
                         .IsRequired()
@@ -117,45 +118,45 @@ namespace OnlineShop.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.Product", b =>
+            modelBuilder.Entity("OnlineShop.Models.ProductCommands", b =>
                 {
-                    b.HasOne("OnlineShop.Models.Shop", "Shop")
+                    b.HasOne("OnlineShop.Models.ShopCommands", "ShopCommands")
                         .WithMany("Products")
                         .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Shop");
+                    b.Navigation("ShopCommands");
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.Shop", b =>
+            modelBuilder.Entity("OnlineShop.Models.ShopCommands", b =>
                 {
-                    b.HasOne("OnlineShop.Models.User", "Manager")
+                    b.HasOne("OnlineShop.Models.UserCommands", "Manager")
                         .WithOne("ManagedShop")
-                        .HasForeignKey("OnlineShop.Models.Shop", "ManagerId")
+                        .HasForeignKey("OnlineShop.Models.ShopCommands", "ManagerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Manager");
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.User", b =>
+            modelBuilder.Entity("OnlineShop.Models.UserCommands", b =>
                 {
-                    b.HasOne("OnlineShop.Models.Shop", null)
+                    b.HasOne("OnlineShop.Models.ShopCommands", null)
                         .WithMany("Employees")
                         .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.Shop", b =>
+            modelBuilder.Entity("OnlineShop.Models.ShopCommands", b =>
                 {
                     b.Navigation("Employees");
 
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.User", b =>
+            modelBuilder.Entity("OnlineShop.Models.UserCommands", b =>
                 {
                     b.Navigation("ManagedShop");
                 });
