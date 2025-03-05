@@ -1,6 +1,9 @@
-﻿namespace OnlineShop.Mediator.Queries.UserQueries
+﻿using MediatR;
+using OnlineShop.Models;
+
+namespace OnlineShop.Mediator.Queries.UserQueries
 {
-    public class GetAllUsersQuery
+    public class GetAllUsersQuery : IRequest<List<User>>
     {
     }
 }
