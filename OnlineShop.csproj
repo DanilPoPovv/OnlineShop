@@ -9,7 +9,8 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="Interfaces\" />
-    <Folder Include="Mediator\Queries\" />
+    <Folder Include="Mediator\Queries\ProductQueries\" />
+    <Folder Include="Mediator\Queries\UserQueries\" />
     <Folder Include="Mediator\QueryHandlers\" />
   </ItemGroup>
 
