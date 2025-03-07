@@ -5,9 +5,11 @@ using OnlineShop.Mediator.Commands;
 using OnlineShop.Mediator.Queries.ShopQueries;
 using OnlineShop.Mediator.Queries.UserQueries;
 using OnlineShop.Mediator.Search.SearchQueries;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OnlineShop.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public readonly IMediator _mediator;

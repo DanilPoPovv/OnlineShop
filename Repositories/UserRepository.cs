@@ -38,7 +38,9 @@ namespace OnlineShop.Repositories
         }
         public async Task<List<User>> GetAllUsersByName(string username) 
         {
-            var users = await _dbSet.Where(u => u.Name.ToLower().Contains(username.ToLower())).ToListAsync();
+            var users = await _dbSet.Where(u => u.Name.ToLower().Contains(username.ToLower())).
+                Include(u => u.Shop).
+                ToListAsync();
             return users;
         }
     }

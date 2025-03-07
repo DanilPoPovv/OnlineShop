@@ -2,6 +2,7 @@
 using MediatR;
 using OnlineShop.Models.ViewModel;
 using OnlineShop.Mediator.Queries.ShopQueries;
+using Microsoft.AspNetCore.Authorization;
 
 namespace OnlineShop.Controllers
 {
@@ -12,7 +13,8 @@ namespace OnlineShop.Controllers
         {
             _mediator = mediator;
         }
-        public async Task<IActionResult> Details(int id)
+        [Authorize(Roles = UserRole.)]
+        public async Task<IActionResult> AddShop(int id)
         {
             var shop = await _mediator.Send(new GetShopByIdQuery {Id = id }, cancellationToken:default);
             var model = new ShopViewModel

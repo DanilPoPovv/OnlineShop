@@ -36,7 +36,6 @@ namespace OnlineShop.DatabaseContext
             modelBuilder.Entity<User>().HasKey(u => u.Id);
             modelBuilder.Entity<User>().Property(u => u.Name).IsRequired().HasMaxLength(100);
             modelBuilder.Entity<User>().Property(u => u.Password).IsRequired().HasMaxLength(100);
-            modelBuilder.Entity<User>().Ignore(u => u.Shop);
             #endregion
         }
     }
