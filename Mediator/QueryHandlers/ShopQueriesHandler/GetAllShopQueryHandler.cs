@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using OnlineShop.Models;
 using OnlineShop.Mediator.Queries.ShopQueries;
 using OnlineShop.Repositories.Interfaces;
+using OnlineShop.Models.POCO;
 
 namespace OnlineShop.Mediator.QueryHandlers.ShopQueriesHandler
 {

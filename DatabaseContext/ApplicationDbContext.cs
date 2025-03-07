@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OnlineShop.Models;
+using OnlineShop.Models.POCO;
 namespace OnlineShop.DatabaseContext
 {
     public class ApplicationDbContext : DbContext

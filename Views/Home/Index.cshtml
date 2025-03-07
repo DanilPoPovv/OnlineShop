@@ -1,0 +1,71 @@
+﻿@model OnlineShop.Models.ViewModel.SearchViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h2>Welcome to the Online Shop</h2>
+
+<!-- Search Form for Users -->
+<h3>Search Users</h3>
+<form method="get" action="@Url.Action("Index", "Home")">
+    <input type="hidden" name="searchShops" value="@Model.ShopSearchTerm" /> <!-- Сохранение поиска магазинов -->
+
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" name="searchUsers" placeholder="Search users..." value="@Model.UserSearchTerm">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </div>
+</form>
+
+<!-- Users Table -->
+<h3>Users</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.Name</td>
+                <td>@user.Role</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Search Form for Shops -->
+<h3>Search Shops</h3>
+<form method="get" action="@Url.Action("Index", "Home")">
+    <input type="hidden" name="searchUsers" value="@Model.UserSearchTerm" /> <!-- Сохранение поиска пользователей -->
+
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" name="searchShops" placeholder="Search shops..." value="@Model.ShopSearchTerm">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </div>
+</form>
+
+<!-- Shops Table -->
+<h3>Shops</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var shop in Model.Shops)
+        {
+            <tr>
+                <td>@shop.Id</td>
+                <td>@shop.Name</td>
+            </tr>
+        }
+    </tbody>
+</table>

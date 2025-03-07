@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using OnlineShop.Models;
+using OnlineShop.Models.POCO;
 namespace OnlineShop.Mediator.Commands.UserCommands
 {
     public class AddUserCommand : IRequest<User>

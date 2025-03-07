@@ -1,15 +1,15 @@
 ﻿using MediatR;
 using OnlineShop.Mediator.Queries.UserQueries;
-using OnlineShop.Models;
+using OnlineShop.Models.POCO;
 using OnlineShop.Repositories.Interfaces;
 
 namespace OnlineShop.Mediator.QueryHandlers.UserQueriesHandler
 {
-    public class GetAllUserQueryHandler : IRequestHandler<GetAllUsersQuery, List<User>>
+    public class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, List<User>>
     {
         IRepository<User> _shopRepository;
 
-        public GetAllUserQueryHandler(IRepository<User> repository)
+        public GetAllUsersQueryHandler(IRepository<User> repository)
         {
             _shopRepository = repository;
         }

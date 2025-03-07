@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using OnlineShop.Mediator.Commands.UserCommands;
-using OnlineShop.Models;
+using OnlineShop.Models.POCO;
 using OnlineShop.Repositories.Interfaces;
 
 namespace OnlineShop.Mediator.Handlers.UserHandler

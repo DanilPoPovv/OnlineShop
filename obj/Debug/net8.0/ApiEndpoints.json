@@ -1,1 +1,50 @@
-[]
+[
+  {
+    "ContainingType": "OnlineShop.Controllers.EmployeeController",
+    "Method": "AddEmployeeToShop",
+    "RelativePath": "api/employee",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "OnlineShop.Mediator.Commands.UserCommands.AddUserCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Controllers.Api.TestProductController",
+    "Method": "AddProductToShop",
+    "RelativePath": "api/product",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "OnlineShop.Mediator.Commands.ProductCommands.AddProductCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Controllers.Api.TestController",
+    "Method": "AddShop",
+    "RelativePath": "api/shop",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "addShopCommand",
+        "Type": "OnlineShop.Mediator.Commands.ShopCommands.AddShopCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

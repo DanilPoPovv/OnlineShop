@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using OnlineShop.Mediator.Commands.ShopCommands;
-using OnlineShop.Models;
+using OnlineShop.Models.POCO;
 using OnlineShop.Repositories.Interfaces;
 
 namespace OnlineShop.Mediator.Handlers.ShopHandler

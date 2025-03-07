@@ -1,5 +1,5 @@
-﻿using OnlineShop.Models;
-using MediatR;
+﻿using MediatR;
+using OnlineShop.Models.POCO;
 
 namespace OnlineShop.Mediator.Commands.UserCommands
 {

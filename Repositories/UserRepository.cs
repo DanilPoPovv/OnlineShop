@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineShop.DatabaseContext;
-using OnlineShop.Models;
+using OnlineShop.Mediator.Authentication.AuthQuery;
+using OnlineShop.Models.POCO;
+using OnlineShop.Repositories.Interfaces;
 
 namespace OnlineShop.Repositories
 {
-    public class UserRepository : Repository<User>
+    public class UserRepository : Repository<User>,IUserRepository
     {
         public UserRepository(ApplicationDbContext context) : base(context) { }
 
@@ -14,7 +16,7 @@ namespace OnlineShop.Repositories
 
             if (user == null || user.Shop == null) 
             {
-                return null;
+                return null!;
             }
 
             return user.Shop.Name;
@@ -25,11 +27,19 @@ namespace OnlineShop.Repositories
 
             if (user == null) 
             {
-                return null;
+                return null!;
             }
             return user.Role.ToString();
         }
-
-
+        public async Task<User> GetUserByUserName(string username) 
+        { 
+            var user = await _dbSet.FirstOrDefaultAsync(s => s.Name == username);
+            return user;
+        }
+        public async Task<List<User>> GetAllUsersByName(string username) 
+        {
+            var users = await _dbSet.Where(u => u.Name.ToLower().Contains(username.ToLower())).ToListAsync();
+            return users;
+        }
     }
 }

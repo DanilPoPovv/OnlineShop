@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using OnlineShop.Models;
+using OnlineShop.Models.POCO;
 
 namespace OnlineShop.Mediator.Queries.UserQueries
 {

@@ -1,4 +1,4 @@
-﻿namespace OnlineShop.Models
+﻿namespace OnlineShop.Models.POCO
 {
     public class Product
     {

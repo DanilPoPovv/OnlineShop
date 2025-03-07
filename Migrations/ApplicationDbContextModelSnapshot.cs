@@ -21,7 +21,7 @@ namespace OnlineShop.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("OnlineShop.Models.ProductCommands", b =>
+            modelBuilder.Entity("OnlineShop.Models.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -57,7 +57,7 @@ namespace OnlineShop.Migrations
                         });
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.ShopCommands", b =>
+            modelBuilder.Entity("OnlineShop.Models.Shop", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -65,7 +65,7 @@ namespace OnlineShop.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ManagerId")
+                    b.Property<int?>("ManagerId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -76,12 +76,13 @@ namespace OnlineShop.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ManagerId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[ManagerId] IS NOT NULL");
 
                     b.ToTable("Shops");
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.UserCommands", b =>
+            modelBuilder.Entity("OnlineShop.Models.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -115,45 +116,44 @@ namespace OnlineShop.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.ProductCommands", b =>
+            modelBuilder.Entity("OnlineShop.Models.Product", b =>
                 {
-                    b.HasOne("OnlineShop.Models.ShopCommands", "ShopCommands")
+                    b.HasOne("OnlineShop.Models.Shop", "Shop")
                         .WithMany("Products")
                         .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ShopCommands");
+                    b.Navigation("Shop");
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.ShopCommands", b =>
+            modelBuilder.Entity("OnlineShop.Models.Shop", b =>
                 {
-                    b.HasOne("OnlineShop.Models.UserCommands", "Manager")
+                    b.HasOne("OnlineShop.Models.User", "Manager")
                         .WithOne("ManagedShop")
-                        .HasForeignKey("OnlineShop.Models.ShopCommands", "ManagerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("OnlineShop.Models.Shop", "ManagerId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Manager");
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.UserCommands", b =>
+            modelBuilder.Entity("OnlineShop.Models.User", b =>
                 {
-                    b.HasOne("OnlineShop.Models.ShopCommands", null)
+                    b.HasOne("OnlineShop.Models.Shop", null)
                         .WithMany("Employees")
                         .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.ShopCommands", b =>
+            modelBuilder.Entity("OnlineShop.Models.Shop", b =>
                 {
                     b.Navigation("Employees");
 
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.UserCommands", b =>
+            modelBuilder.Entity("OnlineShop.Models.User", b =>
                 {
                     b.Navigation("ManagedShop");
                 });

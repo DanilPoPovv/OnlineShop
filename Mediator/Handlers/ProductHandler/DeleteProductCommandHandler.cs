@@ -1,7 +1,7 @@
 ﻿using OnlineShop.Repositories.Interfaces;
-using OnlineShop.Models;
 using MediatR;
 using OnlineShop.Mediator.Commands.ProductCommands;
+using OnlineShop.Models.POCO;
 namespace OnlineShop.Mediator.Handlers.ProductHandler
 {
     public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand,bool>

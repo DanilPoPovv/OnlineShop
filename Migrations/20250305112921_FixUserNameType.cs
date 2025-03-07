@@ -5,7 +5,7 @@
 namespace OnlineShop.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class FixUserNameType : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -35,7 +35,7 @@ namespace OnlineShop.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ManagerId = table.Column<int>(type: "int", nullable: false)
+                    ManagerId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -74,7 +74,8 @@ namespace OnlineShop.Migrations
                 name: "IX_Shops_ManagerId",
                 table: "Shops",
                 column: "ManagerId",
-                unique: true);
+                unique: true,
+                filter: "[ManagerId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_ShopId",
