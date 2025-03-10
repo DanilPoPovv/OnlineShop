@@ -5215,23 +5215,24 @@
       "Microsoft.EntityFrameworkCore >= 9.0.2",
       "Microsoft.EntityFrameworkCore.SqlServer >= 9.0.2",
       "Microsoft.EntityFrameworkCore.Tools >= 9.0.2",
-      "Swashbuckle.AspNetCore >= 7.3.1"
+      "Swashbuckle.AspNetCore >= 7.3.1",
+      "Swashbuckle.AspNetCore.Swagger >= 7.3.1"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\dpopov\\.nuget\\packages\\": {}
+    "C:\\Users\\ДАНИЛ\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dpopov\\Source\\Repos\\OnlineShop\\OnlineShop\\OnlineShop.csproj",
+      "projectUniqueName": "C:\\Users\\ДАНИЛ\\source\\repos\\DanilPoPovv\\OnlineShop\\OnlineShop.csproj",
       "projectName": "OnlineShop",
-      "projectPath": "C:\\Users\\dpopov\\Source\\Repos\\OnlineShop\\OnlineShop\\OnlineShop.csproj",
-      "packagesPath": "C:\\Users\\dpopov\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dpopov\\Source\\Repos\\OnlineShop\\OnlineShop\\obj\\",
+      "projectPath": "C:\\Users\\ДАНИЛ\\source\\repos\\DanilPoPovv\\OnlineShop\\OnlineShop.csproj",
+      "packagesPath": "C:\\Users\\ДАНИЛ\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ДАНИЛ\\source\\repos\\DanilPoPovv\\OnlineShop\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\dpopov\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ДАНИЛ\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5284,6 +5285,10 @@
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[7.3.1, )"
+          },
+          "Swashbuckle.AspNetCore.Swagger": {
+            "target": "Package",
+            "version": "[7.3.1, )"
           }
         },
         "imports": [
@@ -5305,7 +5310,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.309/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

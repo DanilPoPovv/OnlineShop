@@ -13,7 +13,7 @@ namespace OnlineShop.Controllers
         {
             _mediator = mediator;
         }
-        [Authorize(Roles = UserRole.)]
+
         public async Task<IActionResult> AddShop(int id)
         {
             var shop = await _mediator.Send(new GetShopByIdQuery {Id = id }, cancellationToken:default);

@@ -22,6 +22,7 @@ namespace OnlineShop.Mediator.Handlers.UserHandler
                 Password = command.Password,
                 Role = UserRole.Manager,
                 ManagedShopId = command.ManagedShopId,
+                ShopId = command.ManagedShopId
             };
 
             await _userRepository.AddAsync(manager);

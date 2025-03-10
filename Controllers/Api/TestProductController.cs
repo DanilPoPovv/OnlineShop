@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MediatR;
-using OnlineShop.Mediator.Commands.ProductCommands;
+using OnlineShop.Mediator.Commands.ShopCommands.ShopProductCommands;
 
 namespace OnlineShop.Controllers.Api
 {

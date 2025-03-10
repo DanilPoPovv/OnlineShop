@@ -1,14 +1,14 @@
 ﻿using MediatR;
-using OnlineShop.Mediator.Commands.ProductCommands;
+using OnlineShop.Mediator.Commands.ShopCommands.ShopProductCommands;
 using OnlineShop.Models.POCO;
 using OnlineShop.Repositories.Interfaces;
 
-namespace OnlineShop.Mediator.Handlers.ProductHandler
+namespace OnlineShop.Mediator.Handlers.ShopHandler.ShopProductHandler
 {
-    public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand,Product?> 
+    public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Product?>
     {
         IRepository<Product> _productRepository;
-        public UpdateProductCommandHandler(IRepository<Product> repository )
+        public UpdateProductCommandHandler(IRepository<Product> repository)
         {
             _productRepository = repository;
         }

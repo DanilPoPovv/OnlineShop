@@ -12,7 +12,8 @@
           "Microsoft.EntityFrameworkCore": "9.0.2",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.2",
           "Microsoft.EntityFrameworkCore.Tools": "9.0.2",
-          "Swashbuckle.AspNetCore": "7.3.1"
+          "Swashbuckle.AspNetCore": "7.3.1",
+          "Swashbuckle.AspNetCore.Swagger": "7.3.1"
         },
         "runtime": {
           "OnlineShop.dll": {}
