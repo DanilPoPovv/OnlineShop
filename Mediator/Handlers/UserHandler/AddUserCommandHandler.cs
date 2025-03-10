@@ -18,8 +18,8 @@ namespace OnlineShop.Mediator.Handlers.UserHandler
             {
                 Name = request.Name,
                 Password = request.Password,
-                Role = UserRole.Seller,
-                ShopId = request.ShopId,
+                Role = request.Role,
+                Shop = request.shop,
             };
 
             await _userRepository.AddAsync(user);

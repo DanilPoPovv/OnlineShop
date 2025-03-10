@@ -8,6 +8,7 @@ namespace OnlineShop.Repositories.Interfaces
         Task<List<Shop>> GetAllShopByName(string shopName);
         Task<List<User>> GetAllShopEmployeesByShopName(string shopName);
         Task<User> GetShopManagerByShopName(string shopName);
-        Task<Shop> GetShopById(int shopId);
+        Task<Shop> GetShopByName(string shopName);
+        Task<bool> DeleteShopProduct(Shop shop,string shopName);
     }
 }

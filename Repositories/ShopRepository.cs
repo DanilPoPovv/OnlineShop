@@ -27,10 +27,22 @@ namespace OnlineShop.Repositories
 
             return shop?.Manager;
         }
-        public async Task<Shop> GetShopById(int shopId) 
+        public async Task<Shop> GetShopByName(string shopName) 
         {
-            var shop = await _dbSet.Include(s => s.Manager).Include(s => s.Employees).Include(s => s.Products).FirstOrDefaultAsync(s => s.Id == shopId);
-            return shop;
+            var shop = await _dbSet.Include(s => s.Products).FirstOrDefaultAsync(s => s.Name == shopName);
+            return shop!;
+        }
+/// TODO нужно подправить удаление и сделать его через метод Delete базового репозитория
+        public async Task<bool> DeleteShopProduct(Shop shop,string productName) 
+        {
+            var product = shop.Products.FirstOrDefault(s => s.Name==productName);
+            if (product == null)
+            {
+                return false;
+            }
+            shop.Products.Remove(product);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿@model OnlineShop.Models.ViewModel.SearchViewModel
+﻿@using OnlineShop.Models.POCO;
+@model OnlineShop.Models.ViewModel.SearchViewModel
 
 @{
     ViewData["Title"] = "Home Page";
@@ -38,6 +39,12 @@
         }
     </tbody>
 </table>
+
+<!-- Check if the user has the Admin role -->
+@if (User.IsInRole(Enum.GetName(typeof(UserRole), UserRole.Admin)))
+{
+    <a href="/User/Create" class="btn btn-success">Create User</a>
+}
 
 <!-- Search Form for Shops -->
 <h3>Search Shops</h3>

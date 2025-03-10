@@ -106,7 +106,7 @@ namespace OnlineShop.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
-                    b.Property<int>("ShopId")
+                    b.Property<int?>("ShopId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -142,8 +142,7 @@ namespace OnlineShop.Migrations
                     b.HasOne("OnlineShop.Models.POCO.Shop", "Shop")
                         .WithMany("Employees")
                         .HasForeignKey("ShopId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Shop");
                 });

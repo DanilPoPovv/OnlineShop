@@ -11,8 +11,8 @@ using OnlineShop.DatabaseContext;
 namespace OnlineShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250305112921_FixUserNameType")]
-    partial class FixUserNameType
+    [Migration("20250310142538_MainMigration")]
+    partial class MainMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace OnlineShop.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("OnlineShop.Models.Product", b =>
+            modelBuilder.Entity("OnlineShop.Models.POCO.Product", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,7 +60,7 @@ namespace OnlineShop.Migrations
                         });
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.Shop", b =>
+            modelBuilder.Entity("OnlineShop.Models.POCO.Shop", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -85,7 +85,7 @@ namespace OnlineShop.Migrations
                     b.ToTable("Shops");
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.User", b =>
+            modelBuilder.Entity("OnlineShop.Models.POCO.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,7 +109,7 @@ namespace OnlineShop.Migrations
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
-                    b.Property<int>("ShopId")
+                    b.Property<int?>("ShopId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -119,9 +119,9 @@ namespace OnlineShop.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.Product", b =>
+            modelBuilder.Entity("OnlineShop.Models.POCO.Product", b =>
                 {
-                    b.HasOne("OnlineShop.Models.Shop", "Shop")
+                    b.HasOne("OnlineShop.Models.POCO.Shop", "Shop")
                         .WithMany("Products")
                         .HasForeignKey("ShopId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -130,33 +130,34 @@ namespace OnlineShop.Migrations
                     b.Navigation("Shop");
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.Shop", b =>
+            modelBuilder.Entity("OnlineShop.Models.POCO.Shop", b =>
                 {
-                    b.HasOne("OnlineShop.Models.User", "Manager")
+                    b.HasOne("OnlineShop.Models.POCO.User", "Manager")
                         .WithOne("ManagedShop")
-                        .HasForeignKey("OnlineShop.Models.Shop", "ManagerId")
+                        .HasForeignKey("OnlineShop.Models.POCO.Shop", "ManagerId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Manager");
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.User", b =>
+            modelBuilder.Entity("OnlineShop.Models.POCO.User", b =>
                 {
-                    b.HasOne("OnlineShop.Models.Shop", null)
+                    b.HasOne("OnlineShop.Models.POCO.Shop", "Shop")
                         .WithMany("Employees")
                         .HasForeignKey("ShopId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Shop");
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.Shop", b =>
+            modelBuilder.Entity("OnlineShop.Models.POCO.Shop", b =>
                 {
                     b.Navigation("Employees");
 
                     b.Navigation("Products");
                 });
 
-            modelBuilder.Entity("OnlineShop.Models.User", b =>
+            modelBuilder.Entity("OnlineShop.Models.POCO.User", b =>
                 {
                     b.Navigation("ManagedShop");
                 });

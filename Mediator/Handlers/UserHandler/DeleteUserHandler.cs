@@ -7,19 +7,19 @@ namespace OnlineShop.Mediator.Handlers.UserHandler
 {
     public class DeleteUserHandler : IRequestHandler<DeleteUserCommand,bool>
     {
-        IRepository<User> _userRepository;
-        public DeleteUserHandler(IRepository<User> repository)
+        IUserRepository _userRepository;
+        public DeleteUserHandler(IUserRepository repository)
         {
             _userRepository = repository;
         }
         public async Task<bool> Handle(DeleteUserCommand command,CancellationToken cancellationToken)
         {
-            var user = await _userRepository.GetByIdAsync(command.UserId);
+            var user = await _userRepository.GetUserByUserName(command.UserName);
             if (user == null)
             {
                 return false;
             }
-            await _userRepository.DeleteAsync(command.UserId);
+            await _userRepository.DeleteAsync(user.Id);
             return true;
         }
     }

@@ -5,7 +5,7 @@
 namespace OnlineShop.Migrations
 {
     /// <inheritdoc />
-    public partial class FixUserNameType : Migration
+    public partial class MainMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -51,7 +51,7 @@ namespace OnlineShop.Migrations
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Role = table.Column<int>(type: "int", nullable: false),
-                    ShopId = table.Column<int>(type: "int", nullable: false),
+                    ShopId = table.Column<int>(type: "int", nullable: true),
                     ManagedShopId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -62,7 +62,7 @@ namespace OnlineShop.Migrations
                         column: x => x.ShopId,
                         principalTable: "Shops",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

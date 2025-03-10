@@ -2,8 +2,8 @@
 
 namespace OnlineShop.Mediator.Commands.ShopCommands
 {
-    public class DeleteShopCommand : IRequest<bool>
+    public class DeleteShopByShopNameCommand : IRequest<bool>
     {
-        public int ShopId { get; set; }
+        public string ShopName { get; set; }
     }
 }

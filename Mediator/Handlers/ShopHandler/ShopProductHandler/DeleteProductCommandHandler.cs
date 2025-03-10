@@ -1,27 +1,34 @@
 ﻿using OnlineShop.Repositories.Interfaces;
 using MediatR;
-using OnlineShop.Mediator.Commands.ProductCommands;
 using OnlineShop.Models.POCO;
-namespace OnlineShop.Mediator.Handlers.ProductHandler
+using OnlineShop.Mediator.Commands.ShopCommands.ShopProductCommands;
+using OnlineShop.Exceptions.ShopExceptions;
+using OnlineShop.Exceptions.ProductExceptions;
+namespace OnlineShop.Mediator.Handlers.ShopHandler.ShopProductHandler
 {
-    public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand,bool>
+    public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, bool>
     {
-        IRepository<Product> _productRepository;
+        IShopRepository _shopRepository;
 
-        public DeleteProductCommandHandler(IRepository<Product> repository)
+        public DeleteProductCommandHandler(IShopRepository repository)
         {
-            _productRepository = repository;
+            _shopRepository = repository;
         }
 
-        public async Task<bool> Handle(DeleteProductCommand command,CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
         {
-            var product = await _productRepository.GetByIdAsync(command.ProductId);
-            if (product == null) 
+            var shop = await _shopRepository.GetShopByName(command.ShopName);
+            if (shop == null)
             {
-                return false;
+                throw new ShopNotFoundException($"Shop witn name {command.ShopName} not found");
             }
-            await _productRepository.DeleteAsync(command.ProductId);
-            return true;            
+            var deleteSuccess = await _shopRepository.DeleteShopProduct(shop,command.ProductName);
+            if (!deleteSuccess) 
+            {
+                throw new ProductNotFoundException($"Product with name {command.ProductName} not found");
+            }
+            return deleteSuccess;
+
         }
     }
 
