@@ -1,6 +1,6 @@
 [
   {
-    "ContainingType": "OnlineShop.Controllers.EmployeeController",
+    "ContainingType": "OnlineShop.Controllers.Api.UserController",
     "Method": "AddEmployeeToShop",
     "RelativePath": "api/employee",
     "HttpMethod": "POST",
@@ -25,7 +25,7 @@
     "Parameters": [
       {
         "Name": "command",
-        "Type": "OnlineShop.Mediator.Commands.ProductCommands.AddProductCommand",
+        "Type": "OnlineShop.Mediator.Commands.ShopCommands.ShopProductCommands.AddProductCommand",
         "IsRequired": true
       }
     ],

@@ -9,17 +9,17 @@ namespace OnlineShop.Repositories
     {
         public ShopRepository(ApplicationDbContext context) : base(context) { }
 
-        public async Task<List<Product>> GetAllShopProductsByShopName(string shopName) 
+        public async Task<List<Product>> GetAllShopProducts(int shopId) 
         {
-            return await _dbSet.Where(s => s.Name == shopName).SelectMany(s => s.Products!).ToListAsync();
+            return await _dbSet.Where(s => s.Id == shopId).SelectMany(s => s.Products!).ToListAsync();
         }
         public async Task<List<Shop>> GetAllShopByName(string shopName) 
         {
             return await _dbSet.Where(s => s.Name.ToLower().Contains(shopName.ToLower())).ToListAsync();
         }
-        public async Task<List<User>> GetAllShopEmployeesByShopName(string shopName) 
+        public async Task<List<User>> GetAllShopEmployees(int shopId) 
         {
-            return await _dbSet.Where(s => s.Name == shopName).SelectMany(u => u.Employees!).ToListAsync();
+            return await _dbSet.Where(s => s.Id == shopId).SelectMany(u => u.Employees!).ToListAsync();
         }
         public async Task<User> GetShopManagerByShopName(string shopName) 
         {

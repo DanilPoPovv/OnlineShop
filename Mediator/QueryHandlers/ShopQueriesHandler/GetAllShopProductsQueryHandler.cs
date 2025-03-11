@@ -6,16 +6,16 @@ using OnlineShop.Repositories.Interfaces;
 
 namespace OnlineShop.Mediator.QueryHandlers.ShopQueriesHandler
 {
-    public class GetAllShopProductsQueryHandler : IRequestHandler<GetAllShopProductsByShopNameQuery,List<Product>>
+    public class GetAllShopProductsQueryHandler : IRequestHandler<GetAllShopProductsQuery,List<Product>>
     {
         IShopRepository _productRepository;
         public GetAllShopProductsQueryHandler(IShopRepository productRepository)
         {
             _productRepository = productRepository;
         }
-        public async Task<List<Product>> Handle(GetAllShopProductsByShopNameQuery query,CancellationToken cancellationToken) 
+        public async Task<List<Product>> Handle(GetAllShopProductsQuery query,CancellationToken cancellationToken) 
         {
-            return await _productRepository.GetAllShopProductsByShopName(query.ShopName);
+            return await _productRepository.GetAllShopProducts(query.shopId);
         }
     }
 }

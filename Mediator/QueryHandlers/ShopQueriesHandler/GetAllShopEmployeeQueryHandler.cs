@@ -1,11 +1,12 @@
-﻿using OnlineShop.Mediator.Queries.ShopQueries;
+﻿using MediatR;
+using OnlineShop.Mediator.Queries.ShopQueries;
 using OnlineShop.Models.POCO;
 using OnlineShop.Repositories;
 using OnlineShop.Repositories.Interfaces;
 
 namespace OnlineShop.Mediator.QueryHandlers.ShopQueriesHandler
 {
-    public class GetAllShopEmployeeQueryHandler
+    public class GetAllShopEmployeeQueryHandler : IRequestHandler<GetAllShopEmployeeQuery,List<User>>
     {
         IShopRepository _shopRepository;
 
@@ -16,7 +17,7 @@ namespace OnlineShop.Mediator.QueryHandlers.ShopQueriesHandler
 
         public async Task<List<User>> Handle(GetAllShopEmployeeQuery query,CancellationToken cancellationToken) 
         {
-            return await _shopRepository.GetAllShopEmployeesByShopName(query.shopName);
+            return await _shopRepository.GetAllShopEmployees(query.shopId);
         }
     }
 }

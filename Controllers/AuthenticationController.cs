@@ -30,6 +30,8 @@ namespace OnlineShop.Controllers
                 return View(model);
             }
             var user = await _mediator.Send(new LoginCommand { Password = model.Password, Username = model.Username});
+            
+
             if (user == null)
             {
                 ModelState.AddModelError("", "Invalid username or password");
@@ -45,6 +47,7 @@ namespace OnlineShop.Controllers
             {
                 IsPersistent = true,
             };
+            Console.WriteLine(user.Role.ToString());
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity), authProperties);
 

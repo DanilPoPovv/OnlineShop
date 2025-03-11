@@ -1,12 +1,11 @@
 ﻿using MediatR;
 using OnlineShop.Mediator.Commands.ShopCommands;
 using OnlineShop.Repositories.Interfaces;
-using OnlineShop.Models.POCO;
-using OnlineShop.Exceptions.UserExceptions;
+using OnlineShop.Exceptions.ShopExceptions;
 
 namespace OnlineShop.Mediator.Handlers.ShopHandler
 {
-    public class DeleteShopCommandHandler : IRequestHandler<DeleteShopByShopNameCommand,bool>
+    public class DeleteShopCommandHandler : IRequestHandler<DeleteShopCommand,bool>
     {
         IShopRepository _shopRepository;
 
@@ -14,12 +13,12 @@ namespace OnlineShop.Mediator.Handlers.ShopHandler
         {
             _shopRepository = repository;
         }
-        public async Task<bool> Handle(DeleteShopByShopNameCommand command, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteShopCommand command, CancellationToken cancellationToken)
         {
-            var shop = await _shopRepository.GetShopByName(command.ShopName);
+            var shop = await _shopRepository.GetByIdAsync(command.ShopId);
             if (shop == null)
             {
-                throw new UserNotFoundException($"User with name {command.ShopName} not found");
+                return false;
             }
             await _shopRepository.DeleteAsync(shop.Id);
             return true;

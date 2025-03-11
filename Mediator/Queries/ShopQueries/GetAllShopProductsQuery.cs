@@ -3,8 +3,8 @@ using OnlineShop.Models.POCO;
 
 namespace OnlineShop.Mediator.Queries.ShopQueries
 {
-    public class GetAllShopProductsByShopNameQuery : IRequest<List<Product>>
+    public class GetAllShopProductsQuery : IRequest<List<Product>>
     {
-        public string ShopName;
+        public int shopId {  get; set; }
     }
 }

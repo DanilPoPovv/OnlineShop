@@ -23,7 +23,8 @@ namespace OnlineShop.Mediator.Authentication.AuthCommandHandler
             return new UserDto
             {
                 Id = user.Id,
-                UserName = command.Username
+                UserName = command.Username,
+                Role = user.Role
             };
         }
     }

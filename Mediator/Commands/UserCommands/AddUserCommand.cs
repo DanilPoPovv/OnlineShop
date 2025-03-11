@@ -6,7 +6,7 @@ namespace OnlineShop.Mediator.Commands.UserCommands
     {
         public string Name { get; set; }
         public string Password { get; set; }
-        public Shop? shop { get; set; }
+        public string? ShopName  { get; set; }
         public UserRole Role { get; set; }
     }
 }

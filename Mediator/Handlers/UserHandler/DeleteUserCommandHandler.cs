@@ -5,10 +5,10 @@ using OnlineShop.Repositories.Interfaces;
 
 namespace OnlineShop.Mediator.Handlers.UserHandler
 {
-    public class DeleteUserHandler : IRequestHandler<DeleteUserCommand,bool>
+    public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand,bool>
     {
         IUserRepository _userRepository;
-        public DeleteUserHandler(IUserRepository repository)
+        public DeleteUserCommandHandler(IUserRepository repository)
         {
             _userRepository = repository;
         }
