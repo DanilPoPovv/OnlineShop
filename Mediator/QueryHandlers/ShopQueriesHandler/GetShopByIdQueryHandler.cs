@@ -15,7 +15,7 @@ namespace OnlineShop.Mediator.QueryHandlers.ShopQueriesHandler
         }
         public async Task<Shop> Handle(GetShopByIdQuery request, CancellationToken cancellationToken)
         {
-            var shop = await _shopRepository.GetByIdAsync(request.ShopId);
+            var shop = await _shopRepository.GetShopById(request.ShopId);
             return shop;
         }  
     }

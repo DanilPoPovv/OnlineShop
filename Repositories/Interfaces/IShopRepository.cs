@@ -10,5 +10,6 @@ namespace OnlineShop.Repositories.Interfaces
         Task<User> GetShopManagerByShopName(string shopName);
         Task<Shop> GetShopByName(string shopName);
         Task<bool> DeleteShopProduct(Shop shop,string shopName);
+        Task<Shop> GetShopById(int shopId);
     }
 }

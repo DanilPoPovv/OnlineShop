@@ -1,6 +1,7 @@
-﻿@model OnlineShop.Models.ViewModel.ShopViewModel
+﻿ @model OnlineShop.Models.ViewModel.ShopViewModel
 
 <h2>@Model.Shop.Name</h2>
+<h2>Менеджер магазина: @(Model.Shop.Manager != null ? Model.Shop.Manager.Name : "У данного магазина отсутствует менеджер")</h2>
 <h4>Products</h4>
 <table class="table">
     <thead>

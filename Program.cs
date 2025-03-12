@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Настройка базы данных
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging().LogTo(Console.WriteLine));
 
 // Регистрация репозиториев
 builder.Services.AddScoped<IRepository<User>, Repository<User>>();
@@ -21,6 +21,7 @@ builder.Services.AddScoped<IRepository<Shop>, Repository<Shop>>();
 builder.Services.AddScoped<IRepository<Product>, Repository<Product>>();
 builder.Services.AddScoped<IShopRepository, ShopRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
 
 // Настройка аутентификации (Cookies)
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

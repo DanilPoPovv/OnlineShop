@@ -43,7 +43,7 @@ namespace OnlineShop.Controllers
         [HttpPost]
         public async Task<IActionResult> Create([FromBody] AddShopCommand command) 
         {
-            Console.WriteLine(command.Name,command.ManagerName);
+            Console.WriteLine(command.Name + command.ManagerName);
             Console.WriteLine("ЗНАЧЕНИЯ ");
             var result = await _mediator.Send(command);
             if (result == null)

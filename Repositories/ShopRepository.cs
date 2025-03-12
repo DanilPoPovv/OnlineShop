@@ -44,5 +44,10 @@ namespace OnlineShop.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task<Shop> GetShopById(int shopId) 
+        {
+            var shop = _dbSet.Include(s => s.Manager).FirstOrDefault(s => s.Id == shopId);
+            return shop!;
+        }
     }
 }
