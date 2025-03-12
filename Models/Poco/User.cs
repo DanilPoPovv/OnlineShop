@@ -1,4 +1,6 @@
-﻿namespace OnlineShop.Models.POCO
+﻿using System.Text.Json.Serialization;
+
+namespace OnlineShop.Models.POCO
 {
     public enum UserRole
     {
@@ -16,6 +18,7 @@
         public int? ShopId { get; set; }
         public Shop? Shop { get; set; }
         public int? ManagedShopId { get; set; }
+        [JsonIgnore]
         public Shop? ManagedShop { get; set; }
     }
 }

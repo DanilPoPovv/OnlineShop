@@ -11,7 +11,7 @@ using OnlineShop.DatabaseContext;
 namespace OnlineShop.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250310142538_MainMigration")]
+    [Migration("20250312041353_MainMigration")]
     partial class MainMigration
     {
         /// <inheritdoc />
@@ -145,7 +145,7 @@ namespace OnlineShop.Migrations
                     b.HasOne("OnlineShop.Models.POCO.Shop", "Shop")
                         .WithMany("Employees")
                         .HasForeignKey("ShopId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Shop");
                 });

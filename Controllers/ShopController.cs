@@ -40,5 +40,17 @@ namespace OnlineShop.Controllers
             }
             return Ok(new { message = "Shop deleted succesfully" });
         }
+        [HttpPost]
+        public async Task<IActionResult> Create([FromBody] AddShopCommand command) 
+        {
+            Console.WriteLine(command.Name,command.ManagerName);
+            Console.WriteLine("ЗНАЧЕНИЯ ");
+            var result = await _mediator.Send(command);
+            if (result == null)
+            {
+                return NotFound(new { message = "Shop not found or failed to delete" });
+            }
+            return Ok(result);
+        }
     }
 }

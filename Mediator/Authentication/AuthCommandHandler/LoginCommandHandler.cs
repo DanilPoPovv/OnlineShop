@@ -14,7 +14,7 @@ namespace OnlineShop.Mediator.Authentication.AuthCommandHandler
         }
         public async Task<UserDto> Handle(LoginCommand command,CancellationToken cancellationToken) 
         {
-            var user = await _mediator.Send(new GetUserByUserNameQuery { Username = command.Username }, cancellationToken);
+            var user = await _mediator.Send(new GetUserByUserNameAuthQuery { Username = command.Username }, cancellationToken);
 
             if (user == null || user.Password != command.Password)
             {

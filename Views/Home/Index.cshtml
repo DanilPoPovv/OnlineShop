@@ -44,7 +44,6 @@
     </tbody>
 </table>
 
-<!-- Check if the user has the Admin role -->
 @if (User.IsInRole("Admin"))
 {
     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createUserModal">
@@ -92,6 +91,13 @@
     </tbody>
 </table>
 
+@if (User.IsInRole("Admin"))
+{
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createShopModal">
+        Create Shop
+    </button>
+}
+
 <!-- MODAL WINDOW FOR ADDING USERS -->
 <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -128,6 +134,7 @@
         </div>
     </div>
 </div>
+
 
 <!-- JAVASCRIPT CODE FOR AJAX REQUEST -->
 <script>
@@ -226,4 +233,85 @@
             });
     }
 
+</script>
+<!-- MODAL WINDOW FOR ADDING SHOPS -->
+<div class="modal fade" id="createShopModal" tabindex="-1" aria-labelledby="createShopModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createShopModalLabel">Create Shop</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createShopForm">
+                    <div class="mb-3">
+                        <label for="createShopName" class="form-label">Shop Name</label>
+                        <input type="text" class="form-control" id="createShopName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="createManagerName" class="form-label">Manager Name</label>
+                        <input type="text" class="form-control" id="createManagerName">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Shop</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("createShopForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        let shopName = document.getElementById("createShopName").value;
+        let managerName = document.getElementById("createManagerName").value;
+
+        if (!shopName.trim() && !managerName.trim()) {
+            alert("Both fields are empty!");
+            return;
+        }
+
+        fetch("/Shop/Create", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                Name: shopName.trim(),
+                Manager: managerName.trim() || null
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Failed to create shop.");
+                }
+                return response.json();
+            })
+            .then(data => {
+                alert("Shop added successfully!");
+
+                // Закрытие модального окна
+                let modal = bootstrap.Modal.getInstance(document.getElementById("createShopModal"));
+                modal.hide();
+
+                // Очистка формы
+                document.getElementById("createShopForm").reset();
+
+                // Добавление в таблицу без перезагрузки (если нужно)
+                let table = document.querySelector("tbody"); // Найди таблицу магазинов
+                let row = table.insertRow();
+                row.insertCell(0).textContent = data.id;
+                row.insertCell(1).textContent = data.name;
+                let cell3 = row.insertCell(2);
+                let viewButton = document.createElement("a");
+                viewButton.href = `/Shop/Index/${data.id}`;
+                viewButton.classList.add("btn", "btn-info");
+                viewButton.textContent = "View Shop";
+                cell3.appendChild(viewButton);
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Error adding shop.");
+            });
+    });
 </script>
