@@ -1,4 +1,5 @@
-﻿document.getElementById("createUserForm")?.addEventListener("submit", function (event) {
+﻿
+document.getElementById("createUserForm")?.addEventListener("submit", function (event) {
     event.preventDefault();
 
     let userName = document.getElementById("userName").value;
@@ -28,13 +29,13 @@
             row.insertCell(0).textContent = data.shop ? data.shop.name : "No Shop";
             row.insertCell(1).textContent = data.name;
             row.insertCell(2).textContent = data.role;
-
-            // Close modal and reset form
+            
             document.getElementById("createUserForm").reset();
             var modal = bootstrap.Modal.getInstance(document.getElementById("createUserModal"));
-            modal.hide();
+            modal.hide(); 
         })
         .catch(error => console.error("Error:", error));
+
 });
 function deleteUser(name) {
     if (!confirm("Are you sure you want to delete this user?")) {

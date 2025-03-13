@@ -23,7 +23,7 @@ namespace OnlineShop.Controllers
         public async Task<IActionResult> Create([FromBody]AddUserCommand command)
         {
             var user = await _mediator.Send(command);
-            return Ok(user);
+            return Ok(new {message = "User created successfully"});
         }
         [HttpDelete]
         ///TODO нужно так же обрабатывать случаи когда пользователь удаляет сам себя и разлогинивать его.

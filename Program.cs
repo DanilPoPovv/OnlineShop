@@ -45,11 +45,6 @@ builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
-app.UseCors(builder =>
-    builder.AllowAnyOrigin()
-           .AllowAnyMethod()
-           .AllowAnyHeader());
-
 if (app.Environment.IsDevelopment()) // ¬ключаем Swagger только в режиме разработки
 {
     app.UseSwagger();
