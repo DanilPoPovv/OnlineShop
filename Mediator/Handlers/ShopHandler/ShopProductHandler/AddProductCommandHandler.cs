@@ -6,11 +6,11 @@ using OnlineShop.Repositories.Interfaces;
 
 namespace OnlineShop.Mediator.Handlers.ShopHandler.ShopProductHandler
 {
-    public class ProductCommandHandler : IRequestHandler<AddProductCommand, Product>
+    public class AddProductCommandHandler : IRequestHandler<AddProductCommand, Product>
     {
         IRepository<Product> _productRepository;
 
-        public ProductCommandHandler(IRepository<Product> productRepository)
+        public AddProductCommandHandler(IRepository<Product> productRepository)
         {
             _productRepository = productRepository;
         }

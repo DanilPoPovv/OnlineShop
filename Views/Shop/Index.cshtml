@@ -1,7 +1,9 @@
-﻿ @model OnlineShop.Models.ViewModel.ShopViewModel
+﻿@model OnlineShop.Models.ViewModel.ShopViewModel
+@using System.Security.Claims;
 
 <h2>@Model.Shop.Name</h2>
-<h2>Менеджер магазина: @(Model.Shop.Manager != null ? Model.Shop.Manager.Name : "У данного магазина отсутствует менеджер")</h2>
+<h2>Manager: @(Model.Shop.Manager != null ? Model.Shop.Manager.Name : "No Manager")</h2>
+<script src="~/js/site.js"></script>
 <h4>Products</h4>
 <table class="table">
     <thead>
@@ -18,10 +20,28 @@
                 <td>@product.Name</td>
                 <td>@product.Price</td>
                 <td>@product.Quantity</td>
+                <td>
+                @if (User.Identity?.IsAuthenticated == true &&
+               Model.Shop.ManagerId.HasValue &&
+              Model.Shop.ManagerId.ToString() == User.FindFirstValue(ClaimTypes.NameIdentifier))
+                {
+                        <button class="btn btn-danger btn-sm" onclick="deleteProduct(@product.Id)">Delete</button>
+                }
+                </td>
             </tr>
         }
     </tbody>
 </table>
+
+@* Кнопка добавления продукта видна только если текущий пользователь является менеджером данного магазина *@
+@if (User.Identity?.IsAuthenticated == true &&
+   Model.Shop.ManagerId.HasValue &&
+   Model.Shop.ManagerId.ToString() == User.FindFirstValue(ClaimTypes.NameIdentifier))
+{
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createProductModal">
+        Add Product
+    </button>
+}
 
 <h4>Users</h4>
 <table class="table">
@@ -36,10 +56,43 @@
         {
             <tr>
                 <td>@user.Name</td>
-                <td>@user.Role</td>
+                <td>@user.Role</td>   
             </tr>
+
         }
     </tbody>
 </table>
 
+
 <button class="btn btn-primary" onclick="window.history.back()">Go Back</button>
+
+<!-- Модальное окно для создания продукта -->
+<div class="modal fade" id="createProductModal" tabindex="-1" aria-labelledby="createProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="createProductModalLabel">Create Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createProductForm">
+                    <div class="mb-3">
+                        <label for="createProductName" class="form-label">Product Name</label>
+                        <input type="text" class="form-control" id="createProductName" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="createQuantity" class="form-label">Quantity</label>
+                        <input type="number" class="form-control" id="createQuantity" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="createPrice" class="form-label">Price</label>
+                        <input type="number" class="form-control" id="createPrice" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add Product</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="@Url.Content("~/js/site.js")" defer></script>

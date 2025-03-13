@@ -13,7 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Настройка базы данных
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")).EnableSensitiveDataLogging().LogTo(Console.WriteLine));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Регистрация репозиториев
 builder.Services.AddScoped<IRepository<User>, Repository<User>>();
@@ -44,6 +44,11 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+app.UseCors(builder =>
+    builder.AllowAnyOrigin()
+           .AllowAnyMethod()
+           .AllowAnyHeader());
 
 if (app.Environment.IsDevelopment()) // Включаем Swagger только в режиме разработки
 {

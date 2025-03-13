@@ -46,7 +46,7 @@ namespace OnlineShop.Repositories
         }
         public async Task<Shop> GetShopById(int shopId) 
         {
-            var shop = _dbSet.Include(s => s.Manager).FirstOrDefault(s => s.Id == shopId);
+            var shop = _dbSet.Include(s => s.Manager).Include(s => s.Products).FirstOrDefault(s => s.Id == shopId);
             return shop!;
         }
     }

@@ -8,27 +8,17 @@ namespace OnlineShop.Mediator.Handlers.ShopHandler.ShopProductHandler
 {
     public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, bool>
     {
-        IShopRepository _shopRepository;
+        IRepository<Product> _productRepository;
 
-        public DeleteProductCommandHandler(IShopRepository repository)
+        public DeleteProductCommandHandler(IRepository<Product> repository)
         {
-            _shopRepository = repository;
+            _productRepository = repository;
         }
 
         public async Task<bool> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
         {
-            var shop = await _shopRepository.GetShopByName(command.ShopName);
-            if (shop == null)
-            {
-                throw new ShopNotFoundException($"Shop witn name {command.ShopName} not found");
-            }
-            var deleteSuccess = await _shopRepository.DeleteShopProduct(shop,command.ProductName);
-            if (!deleteSuccess) 
-            {
-                throw new ProductNotFoundException($"Product with name {command.ProductName} not found");
-            }
-            return deleteSuccess;
-
+            await _productRepository.DeleteAsync(command.ProductId);
+            return true;
         }
     }
 

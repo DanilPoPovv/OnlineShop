@@ -1,4 +1,4 @@
-﻿document.getElementById("createUserForm").addEventListener("submit", function (event) {
+﻿document.getElementById("createUserForm")?.addEventListener("submit", function (event) {
     event.preventDefault();
 
     let userName = document.getElementById("userName").value;
@@ -91,7 +91,37 @@ function deleteShop(shopId) {
             alert("Error deleting shop.");
         });
 }
-document.getElementById("createShopForm").addEventListener("submit", function (event) {
+function deleteProduct(productId) {
+    console.log(productId)
+    productId = parseInt(productId);
+    if (!confirm("Are you sure you want to delete this product?")) {
+        return;
+    }
+
+    fetch(`/Product/Delete`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ ProductId: productId })
+
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to delete shop.");
+            }
+            return response.json();
+        })
+        .then(data => {
+            alert(data.message);
+            location.reload();
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Error deleting product.");
+        });
+}
+document.getElementById("createShopForm")?.addEventListener("submit", function (event) {
     event.preventDefault();
 
     let shopName = document.getElementById("createShopName").value;
@@ -144,4 +174,44 @@ document.getElementById("createShopForm").addEventListener("submit", function (e
             console.error("Error:", error);
             alert("Error adding shop.");
         });
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const createProductForm = document.getElementById("createProductForm");
+    if (createProductForm && !createProductForm.hasAttribute('data-listener-attached')) {
+        createProductForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            let productName = document.getElementById("createProductName").value;
+            let quantity = parseInt(document.getElementById("createQuantity").value);
+            let price = parseInt(document.getElementById("createPrice").value);
+            let shopId = window.location.pathname.split("/").pop();
+            let requestData = {
+                Name: productName,
+                Quantity: quantity,
+                Price: price,
+                ShopId: parseInt(shopId)
+            };
+
+            console.log(requestData);
+
+            let response = await fetch("/Product/AddProduct", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(requestData)
+            });
+
+            if (response.ok) {
+                alert("Product added successfully!");
+                location.reload();
+            } else {
+                let errorText = await response.text();
+                alert("Error: " + errorText);
+            }
+        });
+
+        createProductForm.setAttribute('data-listener-attached', 'true');
+    }
 });

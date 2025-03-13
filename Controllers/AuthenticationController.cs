@@ -30,7 +30,6 @@ namespace OnlineShop.Controllers
                 return View(model);
             }
             var user = await _mediator.Send(new LoginCommand { Password = model.Password, Username = model.Username});
-            
 
             if (user == null)
             {
@@ -40,7 +39,8 @@ namespace OnlineShop.Controllers
             var claims = new List<Claim>()
             {
                 new Claim(ClaimTypes.Name, user.UserName),
-                new Claim(ClaimTypes.Role, user.Role.ToString())
+                new Claim(ClaimTypes.Role, user.Role.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             };
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var authProperties = new AuthenticationProperties
