@@ -96,7 +96,7 @@ namespace OnlineShop.Migrations
                 column: "ManagerId",
                 principalTable: "Users",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.SetNull);
         }
 
         /// <inheritdoc />

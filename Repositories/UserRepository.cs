@@ -43,5 +43,10 @@ namespace OnlineShop.Repositories
                 ToListAsync();
             return users;
         }
+        public async Task<User> GetUserByIdIncludeShop(int id)
+        {
+            var user = await _dbSet.Include(u => u.Shop).FirstOrDefaultAsync(u => u.Id == id);
+            return user;
+        }
     }
 }

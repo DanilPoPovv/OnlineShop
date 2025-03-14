@@ -9,5 +9,6 @@ namespace OnlineShop.Repositories.Interfaces
         Task<User> GetUserByUserName(string userName);
 
         Task<List<User>> GetAllUsersByName(string userName);
+        Task<User> GetUserByIdIncludeShop(int id);
     }
 }

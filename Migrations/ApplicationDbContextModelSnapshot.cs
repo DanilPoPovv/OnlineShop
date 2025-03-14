@@ -132,7 +132,7 @@ namespace OnlineShop.Migrations
                     b.HasOne("OnlineShop.Models.POCO.User", "Manager")
                         .WithOne("ManagedShop")
                         .HasForeignKey("OnlineShop.Models.POCO.Shop", "ManagerId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Manager");
                 });

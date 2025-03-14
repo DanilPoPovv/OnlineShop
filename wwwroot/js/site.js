@@ -92,6 +92,14 @@ function deleteShop(shopId) {
             alert("Error deleting shop.");
         });
 }
+function editUser(id, name, password, role, shopName) {
+    document.getElementById("editUserId").value = id;
+    document.getElementById("editUserName").value = name;
+    document.getElementById("editUserPassword").value = ""; // Очистка пароля
+    document.getElementById("editUserRole").value = role;
+    document.getElementById("editUserShop").value = shopName;
+}
+
 function deleteProduct(productId) {
     console.log(productId)
     productId = parseInt(productId);
@@ -215,4 +223,43 @@ document.addEventListener("DOMContentLoaded", function () {
 
         createProductForm.setAttribute('data-listener-attached', 'true');
     }
+});
+document.getElementById("editUserForm").addEventListener("submit", function (event) {
+    event.preventDefault(); // Предотвращаем стандартное поведение формы
+
+    let userId = document.getElementById("editUserId").value;
+    let name = document.getElementById("editUserName").value;
+    let password = document.getElementById("editUserPassword").value;
+    let role = document.getElementById("editUserRole").value;
+    let shopName = document.getElementById("editUserShop").value;
+
+    let data = {
+        userId: parseInt(userId),
+        name: name.trim() !== "" ? name : null,
+        password: password.trim() !== "" ? password : null,
+        role: role ? parseInt(role) : null,
+        shopName: shopName ? shopName.trim() : null
+    };
+
+    fetch("/User/Edit", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to update user");
+            }
+            return response.json();
+        })
+        .then(updatedUser => {
+            alert("User updated successfully!");
+            location.reload(); // Перезагружаем страницу для обновления данных
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Error updating user: " + error.message);
+        });
 });

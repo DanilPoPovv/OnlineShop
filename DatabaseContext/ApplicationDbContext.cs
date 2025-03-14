@@ -28,7 +28,7 @@ namespace OnlineShop.DatabaseContext
             #region Shop settings
             modelBuilder.Entity<Shop>().HasKey(s => s.Id);
             modelBuilder.Entity<Shop>().Property(s => s.Name).IsRequired().HasMaxLength(100);
-            modelBuilder.Entity<Shop>().HasOne(s => s.Manager).WithOne(u => u.ManagedShop).HasForeignKey<Shop>(u => u.ManagerId).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Shop>().HasOne(s => s.Manager).WithOne(u => u.ManagedShop).HasForeignKey<Shop>(u => u.ManagerId).OnDelete(DeleteBehavior.SetNull);
             modelBuilder.Entity<Shop>().HasMany(s => s.Employees).WithOne(u => u.Shop).HasForeignKey(u => u.ShopId).OnDelete(DeleteBehavior.SetNull);
             modelBuilder.Entity<Shop>().HasMany(s => s.Products).WithOne(p => p.Shop).HasForeignKey(p => p.ShopId).OnDelete(DeleteBehavior.Cascade);
             #endregion

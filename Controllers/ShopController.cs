@@ -32,9 +32,9 @@ namespace OnlineShop.Controllers
             return View(shopViewModel);
         }
         [HttpDelete]
-        public async Task<IActionResult> Delete(int productId) 
+        public async Task<IActionResult> Delete([FromBody]DeleteShopCommand command) 
         {
-            var result = await _mediator.Send(new DeleteProductCommand { ProductId = productId});
+            var result = await _mediator.Send(command);
             if (!result)
             {
                 throw new ShopNotFoundException($"Failed to delete shop");

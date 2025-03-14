@@ -40,6 +40,12 @@
                     @if (User.IsInRole("Admin"))
                     {
                         <button class="btn btn-danger btn-sm" onclick="deleteUser('@user.Name')">Delete</button>
+                        <button type="button" class="btn btn-success"
+                                data-bs-toggle="modal"
+                                data-bs-target="#changeUserModal"
+                                onclick="editUser('@user.Id','@user.Name', '@user.Password','@user.Role','@user.Shop?.Name')">
+                            Change User
+                        </button>
                     }
                 </td>
             </tr>
@@ -162,5 +168,46 @@
         </div>
     </div>
 </div>
+<!-- MODAL WINDOW FOR EDITING USERS -->
+<div class="modal fade" id="changeUserModal" tabindex="-1" aria-labelledby="changeUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changeUserModalLabel">Edit User</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editUserForm">
+                    <input type="hidden" id="editUserId"> <!-- Скрытое поле с ID пользователя -->
 
+                    <div class="mb-3">
+                        <label for="editUserName" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="editUserName" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editUserPassword" class="form-label">New Password</label>
+                        <input type="password" class="form-control" id="editUserPassword">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editUserRole" class="form-label">Role</label>
+                        <select class="form-select" id="editUserRole">
+                            <option value="0">Admin</option>
+                            <option value="1">Manager</option>
+                            <option value="2">Seller</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editUserShop" class="form-label">Shop Name</label>
+                        <input type="text" class="form-control" id="editUserShop">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="~/js/site.js"></script>

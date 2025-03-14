@@ -25,7 +25,7 @@ namespace OnlineShop.Controllers
             var user = await _mediator.Send(command);
             return Ok(new {message = "User created successfully"});
         }
-        [HttpDelete]
+        [HttpPost]
         ///TODO нужно так же обрабатывать случаи когда пользователь удаляет сам себя и разлогинивать его.
         public async Task<IActionResult> Delete([FromBody] DeleteUserCommand command) 
         {
@@ -35,6 +35,17 @@ namespace OnlineShop.Controllers
                 throw new UserDeleteException($"user delete failed");
             }
             return Ok(new {message = "User deleted successfully"});
+        }
+        [HttpPut]
+        public async Task<IActionResult> Edit([FromBody] UpdateUsersCommand command) 
+        {
+            Console.WriteLine(command.ShopName);
+            var updatedUser = await _mediator.Send(command);
+            if (updatedUser == null)
+            {
+                return NotFound("User Not Found");
+            }
+            return Ok(new { message = "User updated seccessfully" });
         }
     }
 }
