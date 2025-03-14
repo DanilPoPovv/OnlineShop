@@ -1,4 +1,5 @@
-﻿
+﻿import { error } from "jquery";
+
 document.getElementById("createUserForm")?.addEventListener("submit", function (event) {
     event.preventDefault();
 
@@ -261,5 +262,49 @@ document.getElementById("editUserForm").addEventListener("submit", function (eve
         .catch(error => {
             console.error("Error:", error);
             alert("Error updating user: " + error.message);
+        });
+});
+// Функция для заполнения модального окна
+function editShop(id, name, managerName) {
+    document.getElementById("editShopId").value = id;
+    document.getElementById("editShopName").value = name;
+    document.getElementById("editShopManager").value = managerName;
+}
+
+// Обработчик отправки формы
+document.getElementById("editShopForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+
+    let shopId = document.getElementById("editShopId").value;
+    let shopName = document.getElementById("editShopName").value.trim();
+    let manager = document.getElementById("editShopManager").value.trim();
+
+    let data = {
+        shopId: parseInt(shopId),
+        shopName: shopName,
+        managerName: manager
+    };
+
+    fetch("/Shop/Edit", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to update shop");
+            }
+            return response.json();
+        })
+        .then(updatedShop => {
+            alert("Shop updated successfully!");
+            location.reload();
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Error updating shop: " + error.message);
         });
 });

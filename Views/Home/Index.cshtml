@@ -78,6 +78,7 @@
         <tr>
             <th>Id</th>
             <th>Name</th>
+            <th>Manager</th>
         </tr>
     </thead>
     <tbody>
@@ -86,6 +87,7 @@
             <tr>
                 <td>@shop.Id</td>
                 <td>@shop.Name</td>
+                <td>@(shop.Manager?.Name ?? "No manager")</td>
                 <td>
                     <a href="/Shop/Index/@shop.Id" class="btn btn-info">View Shop</a>
                 </td>
@@ -93,7 +95,14 @@
                 {
                     <td>
                         <button class="btn btn-danger btn-sm" onclick="deleteShop('@shop.Id')">Delete</button>
+                        <button type="button" class="btn btn-success"
+                                data-bs-toggle="modal"
+                                data-bs-target="#changeShopModal"
+                                onclick="('@shop.Id','@shop.Name','@shop.Manager?.Name')">
+                            Change Shop
+                        </button>
                     </td>
+
                 }
             </tr>
         }
@@ -210,4 +219,37 @@
         </div>
     </div>
 </div>
-<script src="~/js/site.js"></script>
+<!-- Modal FOR EDITING SHOPS -->
+<div class="modal fade" id="changeShopModal" tabindex="-1" aria-labelledby="changeShopModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="changeShopModalLabel">Edit Shop</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editShopForm">
+                    <input type="hidden" id="editShopId">
+
+                    <div class="mb-3">
+                        <label for="editShopName" class="form-label">Shop Name</label>
+                        <input type="text" class="form-control" id="editShopName" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editShopManager" class="form-label">Manager</label>
+                        <input type="text" class="form-control" id="editShopManager" readonly>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/js/site.js" type="module"></script>
+
+

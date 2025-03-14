@@ -15,7 +15,7 @@ namespace OnlineShop.Repositories
         }
         public async Task<List<Shop>> GetAllShopByName(string shopName) 
         {
-            return await _dbSet.Where(s => s.Name.ToLower().Contains(shopName.ToLower())).ToListAsync();
+            return await _dbSet.Where(s => s.Name.ToLower().Contains(shopName.ToLower())).Include(s => s.Manager).ToListAsync();
         }
         public async Task<List<User>> GetAllShopEmployees(int shopId) 
         {
@@ -44,9 +44,9 @@ namespace OnlineShop.Repositories
             await _context.SaveChangesAsync();
             return true;
         }
-        public async Task<Shop> GetShopById(int shopId) 
+        public async Task<Shop> GetShopByIdIncludeManager(int shopId) 
         {
-            var shop = _dbSet.Include(s => s.Manager).Include(s => s.Products).FirstOrDefault(s => s.Id == shopId);
+            var shop = await _dbSet.Include(s => s.Manager).Include(s => s.Products).FirstOrDefaultAsync(s => s.Id == shopId);
             return shop!;
         }
     }

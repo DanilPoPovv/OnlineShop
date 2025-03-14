@@ -32,7 +32,7 @@ namespace OnlineShop.Controllers
             return View(shopViewModel);
         }
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromBody]DeleteShopCommand command) 
+        public async Task<IActionResult> Delete([FromBody] DeleteShopCommand command)
         {
             var result = await _mediator.Send(command);
             if (!result)
@@ -42,7 +42,7 @@ namespace OnlineShop.Controllers
             return Ok(new { message = "Shop deleted succesfully" });
         }
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] AddShopCommand command) 
+        public async Task<IActionResult> Create([FromBody] AddShopCommand command)
         {
             var result = await _mediator.Send(command);
             if (result == null)
@@ -50,6 +50,22 @@ namespace OnlineShop.Controllers
                 return NotFound(new { message = "Shop not found or failed to delete" });
             }
             return Ok(result);
+        }
+        [HttpPut]
+        public async Task<IActionResult> Edit([FromBody] UpdateShopCommand command)
+        {
+            Console.WriteLine(command.ShopId);
+            Console.WriteLine(command.ManagerName);
+            Console.WriteLine(command.ShopName);
+            try
+            {
+                await _mediator.Send(command);
+                return Ok(new { message = "Shop updated successfully" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }
