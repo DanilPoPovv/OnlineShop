@@ -1,6 +1,4 @@
-﻿import { error } from "jquery";
-
-document.getElementById("createUserForm")?.addEventListener("submit", function (event) {
+﻿document.getElementById("createUserForm")?.addEventListener("submit", function (event) {
     event.preventDefault();
 
     let userName = document.getElementById("userName").value;
@@ -100,7 +98,6 @@ function editUser(id, name, password, role, shopName) {
     document.getElementById("editUserRole").value = role;
     document.getElementById("editUserShop").value = shopName;
 }
-
 function deleteProduct(productId) {
     console.log(productId)
     productId = parseInt(productId);
@@ -185,7 +182,6 @@ document.getElementById("createShopForm")?.addEventListener("submit", function (
             alert("Error adding shop.");
         });
 });
-
 document.addEventListener("DOMContentLoaded", function () {
     const createProductForm = document.getElementById("createProductForm");
     if (createProductForm && !createProductForm.hasAttribute('data-listener-attached')) {
@@ -233,7 +229,7 @@ document.getElementById("editUserForm").addEventListener("submit", function (eve
     let password = document.getElementById("editUserPassword").value;
     let role = document.getElementById("editUserRole").value;
     let shopName = document.getElementById("editUserShop").value;
-
+    
     let data = {
         userId: parseInt(userId),
         name: name.trim() !== "" ? name : null,
@@ -264,14 +260,11 @@ document.getElementById("editUserForm").addEventListener("submit", function (eve
             alert("Error updating user: " + error.message);
         });
 });
-// Функция для заполнения модального окна
 function editShop(id, name, managerName) {
     document.getElementById("editShopId").value = id;
     document.getElementById("editShopName").value = name;
     document.getElementById("editShopManager").value = managerName;
 }
-
-// Обработчик отправки формы
 document.getElementById("editShopForm").addEventListener("submit", function (event) {
     event.preventDefault();
 

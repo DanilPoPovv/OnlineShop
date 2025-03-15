@@ -29,7 +29,8 @@ namespace OnlineShop.Mediator.Handlers.ShopHandler
                 shop.Name = command.ShopName;
                 isUpdated = true;
             }
-            if (!string.IsNullOrEmpty(command.ManagerName)) 
+            ///TODO если у магазина был менеджер и мы добалвем нового - отвязать старого менеджера
+            if (!string.IsNullOrEmpty(command.ManagerName) && shop.Manager?.Name != command.ManagerName) 
             {
                 var user = await _userRepository.GetUserByUserName(command.ManagerName);
                 if (user != null) 

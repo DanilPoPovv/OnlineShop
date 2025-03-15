@@ -98,9 +98,10 @@
                         <button type="button" class="btn btn-success"
                                 data-bs-toggle="modal"
                                 data-bs-target="#changeShopModal"
-                                onclick="('@shop.Id','@shop.Name','@shop.Manager?.Name')">
+                                onclick="editShop('@shop.Id', '@shop.Name', '@shop.Manager?.Name')">
                             Change Shop
                         </button>
+
                     </td>
 
                 }
@@ -238,7 +239,7 @@
 
                     <div class="mb-3">
                         <label for="editShopManager" class="form-label">Manager</label>
-                        <input type="text" class="form-control" id="editShopManager" readonly>
+                        <input type="text" class="form-control" id="editShopManager" required>
                     </div>
 
                     <div class="modal-footer">
@@ -250,6 +251,9 @@
         </div>
     </div>
 </div>
-<script src="~/js/site.js" type="module"></script>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="~/js/site.js"></script>
+</head>
 
 

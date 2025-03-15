@@ -54,7 +54,6 @@ namespace OnlineShop.Controllers
         [HttpPut]
         public async Task<IActionResult> Edit([FromBody] UpdateShopCommand command)
         {
-            Console.WriteLine(command.ShopId);
             Console.WriteLine(command.ManagerName);
             Console.WriteLine(command.ShopName);
             try
