@@ -1,7 +1,8 @@
-﻿document.getElementById("createUserForm")?.addEventListener("submit", function (event) {
+﻿
+document.getElementById("createUserForm")?.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    let userName = document.getElementById("userName").value;
+    let userName = document.getElementById("userName").value;ыы
     let userPassword = document.getElementById("userPassword").value;
     let userRole = document.getElementById("userRole").value;
     let shopName = document.getElementById("shopName").value;
@@ -268,7 +269,6 @@ function editShop(id, name, managerName) {
 document.getElementById("editShopForm").addEventListener("submit", function (event) {
     event.preventDefault();
 
-
     let shopId = document.getElementById("editShopId").value;
     let shopName = document.getElementById("editShopName").value.trim();
     let manager = document.getElementById("editShopManager").value.trim();
@@ -299,5 +299,49 @@ document.getElementById("editShopForm").addEventListener("submit", function (eve
         .catch(error => {
             console.error("Error:", error);
             alert("Error updating shop: " + error.message);
+        });
+});
+function editProduct(id, name, quantity, price) {
+    console.log("123")
+    document.getElementById("editProductId").value = id;
+    document.getElementById("editProductName").value = name;
+    document.getElementById("editProductQuantity").value = quantity;
+    document.getElementById("editProductPrice").value = price;
+}
+document.getElementById("editProductForm").addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    let productId = document.getElementById("editProductId").value;
+    let productName = document.getElementById("editProductName").value.trim();
+    let productQuantity = parseInt(document.getElementById("editProductQuantity").value);
+    let productPrice = parseFloat(document.getElementById("editProductPrice").value);
+
+    let data = {
+        id: productId,
+        name: productName,
+        quantity: productQuantity,
+        price: productPrice
+    };
+
+    fetch("/Product/Edit", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Failed to update product");
+            }
+            return response.json();
+        })
+        .then(updatedProduct => {
+            alert("Product updated successfully!");
+            location.reload();
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Error updating product: " + error.message);
         });
 });

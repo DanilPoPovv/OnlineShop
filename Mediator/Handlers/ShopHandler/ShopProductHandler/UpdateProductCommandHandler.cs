@@ -2,6 +2,7 @@
 using OnlineShop.Mediator.Commands.ShopCommands.ShopProductCommands;
 using OnlineShop.Models.POCO;
 using OnlineShop.Repositories.Interfaces;
+using System.Linq.Expressions;
 
 namespace OnlineShop.Mediator.Handlers.ShopHandler.ShopProductHandler
 {
@@ -15,16 +16,32 @@ namespace OnlineShop.Mediator.Handlers.ShopHandler.ShopProductHandler
         public async Task<Product> Handle(UpdateProductCommand command, CancellationToken cancellationToken)
         {
             var product = await _productRepository.GetByIdAsync(command.Id);
-
+            bool isUpdated = false;
             if (product == null)
             {
-                return null!;
+                throw new Exception("Product was not found");
             }
-            product.Name = command.Name ?? product.Name;
-            product.Quantity = command.Quantity ?? product.Quantity;
-            product.Price = command.Price ?? product.Price;
-            await _productRepository.UpdateAsync(product);
+            if (!string.IsNullOrWhiteSpace(command.Name) && command.Name != product.Name) 
+            {
+                product.Name = command.Name;
+                isUpdated = true;
+            }
+            if (command.Price.HasValue && command.Price != product.Price)
+            {
+                product.Price = command.Price.Value;
+                isUpdated = true;
+            }
+            if (command.Quantity.HasValue  && command.Quantity != product.Quantity)
+            {
+                product.Quantity = command.Quantity.Value;
+                isUpdated = true;
+            }
+            if (isUpdated)
+            {
+                await _productRepository.UpdateAsync(product);
+            }
             return product;
+
         }
 
     }

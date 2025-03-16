@@ -25,6 +25,12 @@
                Model.Shop.ManagerId.HasValue &&
               Model.Shop.ManagerId.ToString() == User.FindFirstValue(ClaimTypes.NameIdentifier))
                 {
+                        <button type="button" class="btn btn-success"
+                                data-bs-toggle="modal"
+                                data-bs-target="#editProductModal"
+                                onclick="editProduct('@product.Id','@product?.Name','@product?.Quantity','@product?.Price')">
+                            Edit
+                        </button>
                         <button class="btn btn-danger btn-sm" onclick="deleteProduct(@product.Id)">Delete</button>
                 }
                 </td>
@@ -94,5 +100,41 @@
         </div>
     </div>
 </div>
+<!-- Модальное окно -->
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="editProductModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProductModalLabel">Edit Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="editProductForm">
+                    <input type="hidden" id="editProductId">
 
-<script src="@Url.Content("~/js/site.js")" defer></script>
+                    <div class="mb-3">
+                        <label for="editProductName" class="form-label">Product Name</label>
+                        <input type="text" class="form-control" id="editProductName" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editProductQuantity" class="form-label">Quantity</label>
+                        <input type="number" class="form-control" id="editProductQuantity" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="editProductPrice" class="form-label">Price</label>
+                        <input type="number" class="form-control" id="editProductPrice" step="0.01" required>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

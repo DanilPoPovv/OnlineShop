@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using OnlineShop.Mediator.Commands.ShopCommands.ShopProductCommands;
 
-
 public class ProductController : Controller
 {
     private readonly IMediator _mediator;
@@ -33,5 +32,12 @@ public class ProductController : Controller
             return BadRequest("Product delete failed");
         }
         return Ok(new { message = "Product successfully deleted"});
+    }
+    [HttpPut]
+    public async Task<IActionResult> Edit([FromBody] UpdateProductCommand command)
+    {
+        Console.WriteLine(command.Id);
+        var product = await _mediator.Send(command);
+        return Ok(new { message = "Product changed successfully" });
     }
 }
