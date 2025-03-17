@@ -348,3 +348,45 @@ document.addEventListener("submit", function (event) {
             alert("Error updating product: " + error.message);
         });
 });
+document.getElementById("addSellerButton")?.addEventListener("click", async function () {
+    let username = document.getElementById("sellerUsername").value.trim();
+    let shopId = document.getElementById("shopId").value;
+    let errorDiv = document.getElementById("addSellerError");
+
+    // Очистка ошибок перед отправкой запроса
+    errorDiv.style.display = "none";
+    errorDiv.textContent = "";
+
+    if (!username) {
+        errorDiv.textContent = "Please enter a username.";
+        errorDiv.style.display = "block";
+        return;
+    }
+
+    let requestData = {
+        ShopId: parseInt(shopId),
+        UserName: username
+    };
+
+    try {
+        let response = await fetch("/Shop/AddSeller", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(requestData)
+        });
+
+        if (!response.ok) {
+            let errorMessage = await response.text();
+            throw new Error(errorMessage || "Failed to add seller.");
+        }
+
+        alert("Seller added successfully!");
+        location.reload(); // Перезагрузка страницы для обновления данных
+    } catch (error) {
+        errorDiv.textContent = error.message;
+        errorDiv.style.display = "block";
+    }
+});
+

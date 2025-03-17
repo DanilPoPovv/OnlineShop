@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using OnlineShop.Mediator.Commands.ShopCommands;
 using OnlineShop.Exceptions.ShopExceptions;
 using OnlineShop.Mediator.Commands.ShopCommands.ShopProductCommands;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace OnlineShop.Controllers
 {
@@ -58,6 +59,21 @@ namespace OnlineShop.Controllers
             {
                 await _mediator.Send(command);
                 return Ok(new { message = "Shop updated successfully" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddSeller([FromBody] AddSellerCommand command)
+        {
+            Console.WriteLine(command.UserName);
+            Console.WriteLine(command.ShopId);
+            try
+            {
+                var user = await _mediator.Send(command);
+                return Ok(user);
             }
             catch (Exception ex)
             {

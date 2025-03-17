@@ -1,6 +1,5 @@
 ﻿@model OnlineShop.Models.ViewModel.ShopViewModel
 @using System.Security.Claims;
-
 <h2>@Model.Shop.Name</h2>
 <h2>Manager: @(Model.Shop.Manager != null ? Model.Shop.Manager.Name : "No Manager")</h2>
 <h4>Products</h4>
@@ -61,15 +60,20 @@
         {
             <tr>
                 <td>@user.Name</td>
-                <td>@user.Role</td>   
+                <td>@user.Role</td>
             </tr>
 
         }
     </tbody>
 </table>
-
-
-<button class="btn btn-primary" onclick="window.history.back()">Go Back</button>
+@if (User.Identity?.IsAuthenticated == true &&
+               Model.Shop.ManagerId.HasValue &&
+               Model.Shop.ManagerId.ToString() == User.FindFirstValue(ClaimTypes.NameIdentifier))
+{
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addShopSellerModal">
+        Add seller
+    </button>
+}
 
 <!-- Модальное окно для создания продукта -->
 <div class="modal fade" id="createProductModal" tabindex="-1" aria-labelledby="createProductModalLabel" aria-hidden="true">
@@ -113,17 +117,17 @@
 
                     <div class="mb-3">
                         <label for="editProductName" class="form-label">Product Name</label>
-                        <input type="text" class="form-control" id="editProductName" required>
+                        <input type="text" class="form-control" id="editProductName" >
                     </div>
 
                     <div class="mb-3">
                         <label for="editProductQuantity" class="form-label">Quantity</label>
-                        <input type="number" class="form-control" id="editProductQuantity" required>
+                        <input type="number" class="form-control" id="editProductQuantity" max="10000">
                     </div>
 
                     <div class="mb-3">
                         <label for="editProductPrice" class="form-label">Price</label>
-                        <input type="number" class="form-control" id="editProductPrice" step="0.01" required>
+                        <input type="number" class="form-control" id="editProductPrice" step="0.01" max="999999">
                     </div>
 
                     <div class="modal-footer">
@@ -131,6 +135,31 @@
                         <button type="submit" class="btn btn-primary">Save changes</button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="addShopSellerModal" tabindex="-1" aria-labelledby="addShopSellerModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addShopSellerModalLabel">Add Seller to Shop</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="addSellerForm">
+                    <div class="mb-3">
+                        <label for="sellerUsername" class="form-label">Seller Username</label>
+                        <input type="text" class="form-control" id="sellerUsername" required>
+                    </div>
+                    <input type="hidden" id="shopId" value="@Model.Shop.Id" />
+                </form>
+                <div id="addSellerError" class="text-danger" style="display: none;"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" id="addSellerButton">Add Seller</button>
             </div>
         </div>
     </div>

@@ -35,7 +35,7 @@ namespace OnlineShop.Mediator.Handlers.ShopHandler
                 var user = await _userRepository.GetUserByUserName(command.ManagerName);
                 if (user != null) 
                 {
-                    if (user.ManagedShopId == null && user.ShopId == null) 
+                    if (user.ManagedShopId == null && (user.ShopId == null || user.ShopId == command.ShopId)) 
                     {
                         shop.ManagerId = user.Id;
                         user.ManagedShopId = shop.Id;
@@ -48,7 +48,7 @@ namespace OnlineShop.Mediator.Handlers.ShopHandler
                     }
                 }             
             }
-            else if (command.ManagerName == null && shop.Manager != null)
+            else if (string.IsNullOrWhiteSpace(command.ManagerName) && shop.Manager != null)
             {
                 shop.ManagerId = null;
                 shop.Manager.ShopId = null;
