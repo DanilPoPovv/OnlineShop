@@ -2,7 +2,7 @@
 document.getElementById("createUserForm")?.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    let userName = document.getElementById("userName").value;ыы
+    let userName = document.getElementById("userName").value;
     let userPassword = document.getElementById("userPassword").value;
     let userRole = document.getElementById("userRole").value;
     let shopName = document.getElementById("shopName").value;
@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function () {
         createProductForm.setAttribute('data-listener-attached', 'true');
     }
 });
-document.getElementById("editUserForm").addEventListener("submit", function (event) {
+document.getElementById("editUserForm")?.addEventListener("submit", function (event) {
     event.preventDefault(); // Предотвращаем стандартное поведение формы
 
     let userId = document.getElementById("editUserId").value;
@@ -266,7 +266,7 @@ function editShop(id, name, managerName) {
     document.getElementById("editShopName").value = name;
     document.getElementById("editShopManager").value = managerName;
 }
-document.getElementById("editShopForm").addEventListener("submit", function (event) {
+document.getElementById("editShopForm")?.addEventListener("submit", function (event) {
     event.preventDefault();
 
     let shopId = document.getElementById("editShopId").value;
@@ -308,7 +308,10 @@ function editProduct(id, name, quantity, price) {
     document.getElementById("editProductQuantity").value = quantity;
     document.getElementById("editProductPrice").value = price;
 }
-document.getElementById("editProductForm").addEventListener("submit", function (event) {
+document.addEventListener("submit", function (event) {
+    let form = event.target.closest("#editProductForm");
+    if (!form) return; // Если форма не найдена, ничего не делаем
+
     event.preventDefault();
 
     let productId = document.getElementById("editProductId").value;

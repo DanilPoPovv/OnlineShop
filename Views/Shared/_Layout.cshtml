@@ -40,12 +40,14 @@
 
     <div class="container mt-4">
         @RenderBody()
+
+        <script src="~/js/site.js" defer></script>
+        @RenderSection("Scripts", required: false)
     </div>
 
     <footer class="bg-dark text-center text-white py-3 mt-5">
         <p>&copy; 2025 - Shop Management</p>
     </footer>
 
-    @RenderSection("Scripts", required: false) <!-- Добавлено сюда -->
 </body>
 </html>

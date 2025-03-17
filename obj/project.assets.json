@@ -5220,19 +5220,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ДАНИЛ\\.nuget\\packages\\": {}
+    "C:\\Users\\dpopov\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ДАНИЛ\\source\\repos\\DanilPoPovv\\OnlineShop\\OnlineShop.csproj",
+      "projectUniqueName": "C:\\Users\\dpopov\\Source\\Repos\\OnlineShop\\OnlineShop\\OnlineShop.csproj",
       "projectName": "OnlineShop",
-      "projectPath": "C:\\Users\\ДАНИЛ\\source\\repos\\DanilPoPovv\\OnlineShop\\OnlineShop.csproj",
-      "packagesPath": "C:\\Users\\ДАНИЛ\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ДАНИЛ\\source\\repos\\DanilPoPovv\\OnlineShop\\obj\\",
+      "projectPath": "C:\\Users\\dpopov\\Source\\Repos\\OnlineShop\\OnlineShop\\OnlineShop.csproj",
+      "packagesPath": "C:\\Users\\dpopov\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\dpopov\\Source\\Repos\\OnlineShop\\OnlineShop\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ДАНИЛ\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\dpopov\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5310,7 +5310,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.310/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
