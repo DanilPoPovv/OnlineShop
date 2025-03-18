@@ -8,8 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\" />
-    <Folder Include="Mediator\Queries\ProductQueries\" />
-    <Folder Include="Mediator\QueryHandlers\ProductQueriesHandler\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,23 +1,7 @@
 [
   {
-    "ContainingType": "OnlineShop.Controllers.Api.UserController",
-    "Method": "AddEmployeeToShop",
-    "RelativePath": "api/employee",
-    "HttpMethod": "POST",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [
-      {
-        "Name": "command",
-        "Type": "OnlineShop.Mediator.Commands.UserCommands.AddUserCommand",
-        "IsRequired": true
-      }
-    ],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "OnlineShop.Controllers.Api.TestProductController",
-    "Method": "AddProductToShop",
+    "ContainingType": "OnlineShop.Controllers.Api.ProductController",
+    "Method": "AddProduct",
     "RelativePath": "api/product",
     "HttpMethod": "POST",
     "IsController": true,
@@ -32,7 +16,55 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "OnlineShop.Controllers.Api.TestController",
+    "ContainingType": "OnlineShop.Controllers.Api.ProductController",
+    "Method": "UpdateProduct",
+    "RelativePath": "api/product",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "OnlineShop.Mediator.Commands.ShopCommands.ShopProductCommands.UpdateProductCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Controllers.Api.ProductController",
+    "Method": "DeleteProduct",
+    "RelativePath": "api/product",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "OnlineShop.Mediator.Commands.ShopCommands.ShopProductCommands.DeleteProductCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Controllers.Api.ProductController",
+    "Method": "GetProduct",
+    "RelativePath": "api/product/{productId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "productId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Controllers.Api.ShopController",
     "Method": "AddShop",
     "RelativePath": "api/shop",
     "HttpMethod": "POST",
@@ -42,6 +74,118 @@
       {
         "Name": "addShopCommand",
         "Type": "OnlineShop.Mediator.Commands.ShopCommands.AddShopCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Controllers.Api.ShopController",
+    "Method": "ChangeShop",
+    "RelativePath": "api/shop",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "updateShopCommand",
+        "Type": "OnlineShop.Mediator.Commands.ShopCommands.UpdateShopCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Controllers.Api.ShopController",
+    "Method": "DeleteShop",
+    "RelativePath": "api/shop",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "deleteShopCommand",
+        "Type": "OnlineShop.Mediator.Commands.ShopCommands.DeleteShopCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Controllers.Api.ShopController",
+    "Method": "GetShop",
+    "RelativePath": "api/shop/{shopId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "shopId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Controllers.Api.UserController",
+    "Method": "AddUser",
+    "RelativePath": "api/user",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "OnlineShop.Mediator.Commands.UserCommands.AddUserCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Controllers.Api.UserController",
+    "Method": "ChangeUser",
+    "RelativePath": "api/user",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "OnlineShop.Mediator.Commands.UserCommands.UpdateUsersCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Controllers.Api.UserController",
+    "Method": "DeleteUser",
+    "RelativePath": "api/user",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "OnlineShop.Mediator.Commands.UserCommands.DeleteUserCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "OnlineShop.Controllers.Api.UserController",
+    "Method": "GetUser",
+    "RelativePath": "api/user/{userId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userId",
+        "Type": "System.Int32",
         "IsRequired": true
       }
     ],

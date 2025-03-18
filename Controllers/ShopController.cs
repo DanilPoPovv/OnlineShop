@@ -7,9 +7,11 @@ using OnlineShop.Mediator.Commands.ShopCommands;
 using OnlineShop.Exceptions.ShopExceptions;
 using OnlineShop.Mediator.Commands.ShopCommands.ShopProductCommands;
 using Microsoft.AspNetCore.Components.Web;
+using System.Xml.Serialization;
 
 namespace OnlineShop.Controllers
 {
+
     public class ShopController : Controller
     {
         private readonly IMediator _mediator;
@@ -17,7 +19,6 @@ namespace OnlineShop.Controllers
         {
             _mediator = mediator;
         }
-
         public async Task<IActionResult> Index(int id)
         {
             var shop = await _mediator.Send(new GetShopByIdQuery { ShopId = id });
