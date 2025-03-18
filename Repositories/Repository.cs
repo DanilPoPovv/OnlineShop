@@ -1,6 +1,6 @@
 ﻿using OnlineShop.Repositories.Interfaces;
-using OnlineShop.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
+using OnlineShop.Data.DatabaseContext;
 namespace OnlineShop.Repositories
 {
     public class Repository <T> : IRepository<T> where T : class

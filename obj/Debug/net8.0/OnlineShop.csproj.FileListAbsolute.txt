@@ -346,3 +346,7 @@ C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\obj\Debug\net8.0\refint\Onlin
 C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\obj\Debug\net8.0\OnlineShop.pdb
 C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\obj\Debug\net8.0\OnlineShop.genruntimeconfig.cache
 C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\obj\Debug\net8.0\ref\OnlineShop.dll
+C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\bin\Debug\net8.0\NLog.dll
+C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\bin\Debug\net8.0\NLog.Extensions.Logging.dll
+C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\bin\Debug\net8.0\NLog.Web.AspNetCore.dll
+C:\Users\dpopov\Source\Repos\OnlineShop\OnlineShop\bin\Debug\net8.0\nlog.config

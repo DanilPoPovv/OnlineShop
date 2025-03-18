@@ -1,4 +1,4 @@
-﻿using OnlineShop.DatabaseContext;
+﻿using OnlineShop.Data.DatabaseContext;
 using OnlineShop.Models.POCO;
 
 namespace OnlineShop.Repositories

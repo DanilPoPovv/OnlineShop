@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineShop.Models.POCO;
-namespace OnlineShop.DatabaseContext
+namespace OnlineShop.Data.DatabaseContext
 {
     public class ApplicationDbContext : DbContext
     {

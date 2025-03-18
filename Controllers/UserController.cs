@@ -13,15 +13,18 @@ namespace OnlineShop.Controllers
     [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
+        private readonly ILogger<UserController> _logger;
         IMediator _mediator;
-        public UserController(IMediator mediator)
+        public UserController(IMediator mediator, ILogger<UserController> logger)
         {
             _mediator = mediator;
+            _logger = logger;
         }
         [HttpPost]
         public async Task<IActionResult> Create([FromBody]AddUserCommand command)
         {
             var user = await _mediator.Send(command);
+
             return Ok(new {message = "User created successfully"});
         }
         [HttpDelete]

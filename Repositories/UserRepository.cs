@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using OnlineShop.DatabaseContext;
+using OnlineShop.Data.DatabaseContext;
 using OnlineShop.Mediator.Authentication.AuthQuery;
 using OnlineShop.Models.POCO;
 using OnlineShop.Repositories.Interfaces;
