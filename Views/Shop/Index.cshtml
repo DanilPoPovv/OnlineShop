@@ -1,5 +1,8 @@
 ﻿@model OnlineShop.Models.ViewModel.ShopViewModel
 @using System.Security.Claims;
+@{var isManager = User.Identity?.IsAuthenticated == true &&
+               Model.Shop.ManagerId.HasValue &&
+              Model.Shop.ManagerId.ToString() == User.FindFirstValue(ClaimTypes.NameIdentifier);}
 <h2>@Model.Shop.Name</h2>
 <h2>Manager: @(Model.Shop.Manager != null ? Model.Shop.Manager.Name : "No Manager")</h2>
 <h4>Products</h4>
@@ -18,20 +21,24 @@
                 <td>@product.Name</td>
                 <td>@product.Price</td>
                 <td>@product.Quantity</td>
-                <td>
-                @if (User.Identity?.IsAuthenticated == true &&
-               Model.Shop.ManagerId.HasValue &&
-              Model.Shop.ManagerId.ToString() == User.FindFirstValue(ClaimTypes.NameIdentifier))
+
+                @if (isManager)
                 {
-                        <button type="button" class="btn btn-success"
-                                data-bs-toggle="modal"
-                                data-bs-target="#editProductModal"
-                                onclick="editProduct('@product.Id','@product?.Name','@product?.Quantity','@product?.Price')">
-                            Edit
-                        </button>
-                        <button class="btn btn-danger btn-sm" onclick="deleteProduct(@product.Id)">Delete</button>
+                    <td class="text-center align-middle">
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-success"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#editProductModal"
+                                    onclick="editProduct('@product.Id','@product?.Name','@product?.Quantity','@product?.Price')">
+                                Edit
+                            </button>
+                            <button class="btn btn-danger"
+                                    onclick="deleteProduct(@product.Id)">
+                                Delete
+                            </button>
+                        </div>
+                    </td>
                 }
-                </td>
             </tr>
         }
     </tbody>

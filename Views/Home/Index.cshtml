@@ -37,16 +37,19 @@
                 <td>@user.Name</td>
                 <td>@user.Role</td>
                 <td>
-                    @if (User.IsInRole("Admin"))
-                    {
-                        <button class="btn btn-danger btn-sm" onclick="deleteUser('@user.Name')">Delete</button>
-                        <button type="button" class="btn btn-success"
-                                data-bs-toggle="modal"
-                                data-bs-target="#changeUserModal"
-                                onclick="editUser('@user.Id','@user.Name', '@user.Password','@user.Role','@user.Shop?.Name')">
-                            Change User
-                        </button>
-                    }
+                <td>
+                        @if (User.IsInRole("Admin"))
+                        {
+                        <div class="d-flex gap-2">
+                            <button type="button" class="btn btn-success"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#changeUserModal"
+                                    onclick="editUser('@user.Id','@user.Name', '@user.Password','@user.Role','@user.Shop?.Name')">
+                                Change User
+                            </button>
+                            <button class="btn btn-danger" onclick="deleteUser('@user.Name')">Delete</button>
+                        </div>
+                        }
                 </td>
             </tr>
         }
@@ -89,33 +92,38 @@
                 <td>@shop.Name</td>
                 <td>@(shop.Manager?.Name ?? "No manager")</td>
                 <td>
-                    <a href="/Shop/Index/@shop.Id" class="btn btn-info">View Shop</a>
-                </td>
-                @if (User.IsInRole("Admin"))
-                {
-                    <td>
-                        <button class="btn btn-danger btn-sm" onclick="deleteShop('@shop.Id')">Delete</button>
-                        <button type="button" class="btn btn-success"
-                                data-bs-toggle="modal"
-                                data-bs-target="#changeShopModal"
-                                onclick="editShop('@shop.Id', '@shop.Name', '@shop.Manager?.Name')">
-                            Change Shop
-                        </button>
-
-                    </td>
-
-                }
+                    <div class="d-flex gap-2">
+                        <a href="/Shop/Index/@shop.Id" class="btn btn-info">View Shop</a>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <button type="button" class="btn btn-success"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#changeShopModal"
+                                    onclick="editShop('@shop.Id', '@shop.Name', '@shop.Manager?.Name')">
+                                Change Shop
+                            </button>
+                            <button class="btn btn-danger" onclick="deleteShop('@shop.Id')">Delete</button>
+                        }
+                    </div>
             </tr>
         }
     </tbody>
 </table>
 
-@if (User.IsInRole("Admin"))
-{
-    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createShopModal">
-        Create Shop
-    </button>
-}
+
+    @if (User.IsInRole("Admin"))
+    {
+        <div class="d-flex gap-2">
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createUserModal">
+                Create User
+            </button>
+            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createShopModal">
+                Create Shop
+            </button>
+        </div>
+    }
+
+
 
 <!-- MODAL WINDOW FOR ADDING USERS -->
 <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">

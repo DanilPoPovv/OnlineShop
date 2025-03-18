@@ -33,6 +33,8 @@ namespace OnlineShop.Mediator.Handlers.ShopHandler
             if (!string.IsNullOrEmpty(command.ManagerName) && shop.Manager?.Name != command.ManagerName) 
             {
                 var user = await _userRepository.GetUserByUserName(command.ManagerName);
+                shop.Manager.ShopId = null;
+                shop.Manager.ManagedShopId = null;
                 if (user != null) 
                 {
                     if (user.ManagedShopId == null && (user.ShopId == null || user.ShopId == command.ShopId)) 
