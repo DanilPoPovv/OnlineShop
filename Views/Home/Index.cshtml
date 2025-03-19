@@ -24,6 +24,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th>Id</th>
             <th>Shop Name</th>
             <th>Name</th>
             <th>Role</th>
@@ -33,6 +34,7 @@
         @foreach (var user in Model.Users)
         {
             <tr>
+                <td>@user.Id</td>
                 <td>@user.Shop?.Name</td>
                 <td>@user.Name</td>
                 <td>@user.Role</td>

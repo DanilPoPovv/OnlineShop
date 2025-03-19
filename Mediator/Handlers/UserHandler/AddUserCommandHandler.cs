@@ -15,17 +15,16 @@ namespace OnlineShop.Mediator.Handlers.UserHandler
             _userRepository = userRepository;
             _mediator = mediator;
         }
-        public async Task<User> Handle(AddUserCommand request, CancellationToken cancellationToken)
+        public async Task<User> Handle(AddUserCommand command, CancellationToken cancellationToken)
         {
-            var shop = !string.IsNullOrEmpty(request.ShopName) ? await _mediator.Send(new GetShopByNameQuery() { ShopName = request.ShopName }) : null;
+            var shop = !string.IsNullOrEmpty(command.ShopName) ? await _mediator.Send(new GetShopByNameQuery() { ShopName = command.ShopName }) : null;
             var user = new User
             {
-                Name = request.Name,
-                Password = request.Password,
-                Role = request.Role,
+                Name = command.Name,
+                Password = command.Password,
+                Role = command.Role,
                 ShopId = shop?.Id,
             };
-
             await _userRepository.AddAsync(user);
             return user;
         }
