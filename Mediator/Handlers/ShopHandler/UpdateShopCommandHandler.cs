@@ -1,68 +1,86 @@
 ﻿using MediatR;
+using OnlineShop.Exceptions.ShopExceptions;
+using OnlineShop.Exceptions.UserExceptions;
 using OnlineShop.Mediator.Commands.ShopCommands;
 using OnlineShop.Mediator.Queries.ShopQueries;
 using OnlineShop.Models.POCO;
 using OnlineShop.Repositories.Interfaces;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace OnlineShop.Mediator.Handlers.ShopHandler
 {
-    public class UpdateShopCommandHandler : IRequestHandler<UpdateShopCommand,Shop>
+    public class UpdateShopCommandHandler : IRequestHandler<UpdateShopCommand, Shop>
     {
         IShopRepository _shopRepository;
         IUserRepository _userRepository;
 
-        public UpdateShopCommandHandler(IShopRepository shopRepository,IUserRepository userRepository)
+        public UpdateShopCommandHandler(IShopRepository shopRepository, IUserRepository userRepository)
         {
             _shopRepository = shopRepository;
             _userRepository = userRepository;
         }
-        public async Task<Shop> Handle(UpdateShopCommand command,CancellationToken cancellationToken) 
+        public async Task<Shop> Handle(UpdateShopCommand command, CancellationToken cancellationToken)
         {
             var shop = await _shopRepository.GetShopByIdIncludeManager(command.ShopId);
             bool isUpdated = false;
+
             if (shop == null)
             {
-                return null!;
+                throw new ShopNotFoundException($"Shop with name {command.ShopName} was not found");
             }
-            if (!string.IsNullOrWhiteSpace(command.ShopName) && shop.Name != command.ShopName)
+
+            if (shop.Name != command.ShopName)
             {
-                shop.Name = command.ShopName;
+                shop.Name = command.ShopName!;
                 isUpdated = true;
             }
-            ///TODO если у магазина был менеджер и мы добалвем нового - отвязать старого менеджера
-            if (!string.IsNullOrEmpty(command.ManagerName) && shop.Manager?.Name != command.ManagerName) 
-            {
-                var user = await _userRepository.GetUserByUserName(command.ManagerName);
-                shop.Manager.ShopId = null;
-                shop.Manager.ManagedShopId = null;
-                if (user != null) 
-                {
-                    if (user.ManagedShopId == null && (user.ShopId == null || user.ShopId == command.ShopId)) 
-                    {
-                        shop.ManagerId = user.Id;
-                        user.ManagedShopId = shop.Id;
-                        user.ShopId = shop.Id;
-                        isUpdated = true;
-                    }
-                    else 
-                    {
-                        throw new Exception("This user is already managing or selling another shop");
-                    }
-                }             
-            }
-            else if (string.IsNullOrWhiteSpace(command.ManagerName) && shop.Manager != null)
-            {
-                shop.ManagerId = null;
-                shop.Manager.ShopId = null;
-                shop.Manager.ManagedShopId = null;
-                isUpdated = true;
-            }
+
+            isUpdated |= await UpdateShopManager(shop, command.ManagerName);
+
             if (!isUpdated)
             {
                 return shop;
             }
+
             await _shopRepository.UpdateAsync(shop);
             return shop;
+        }
+        private async Task<bool> UpdateShopManager(Shop shop, string? newManagerName)
+        {
+            if (string.IsNullOrEmpty(newManagerName) && shop.Manager != null)
+            {
+                DetachCurrentManager(shop);
+                return true;
+            }
+            if (newManagerName != null)
+            {
+                var newManager = await _userRepository.GetUserByUserName(newManagerName);
+                if (newManager == null)
+                {
+                    throw new UserNotFoundException($"Manager with name {newManagerName} was not found");
+                }
+                if (newManager.ShopId == null)
+                {
+                    DetachCurrentManager(shop);
+                    newManager.ManagedShopId = shop.Id;
+                    shop.ManagerId = newManager.Id;
+                    return true;
+                }
+                else
+                {
+                    throw new Exception("This user is already assigned to another shop");
+                }
+            }
+            return false;
+        }
+        private void DetachCurrentManager(Shop shop)
+        {
+            if (shop.Manager != null)
+            {
+                shop.Manager.ShopId = null;
+                shop.Manager.ManagedShopId = null;
+                shop.ManagerId = null;
+            }
         }
     }
 }

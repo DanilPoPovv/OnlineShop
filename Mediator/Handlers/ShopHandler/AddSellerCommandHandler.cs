@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using OnlineShop.Exceptions.UserExceptions;
 using OnlineShop.Mediator.Commands.ShopCommands;
 using OnlineShop.Models.POCO;
 using OnlineShop.Repositories.Interfaces;
@@ -17,7 +18,7 @@ namespace OnlineShop.Mediator.Handlers.ShopHandler
             var user = await _userRepository.GetUserByUserName(command.UserName);
             if (user == null)
             {
-                throw new Exception($"User with {command.UserName} was not found");
+                throw new UserNotFoundException($"Seller with name {command.UserName} was not found");
             }
             if (user.ShopId == command.ShopId || (user.ShopId != null && user.ManagedShopId != null))
             {

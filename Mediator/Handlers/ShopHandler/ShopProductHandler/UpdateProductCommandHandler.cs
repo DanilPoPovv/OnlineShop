@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using OnlineShop.Exceptions.ProductExceptions;
 using OnlineShop.Mediator.Commands.ShopCommands.ShopProductCommands;
 using OnlineShop.Models.POCO;
 using OnlineShop.Repositories.Interfaces;
@@ -19,7 +20,7 @@ namespace OnlineShop.Mediator.Handlers.ShopHandler.ShopProductHandler
             bool isUpdated = false;
             if (product == null)
             {
-                throw new Exception("Product was not found");
+                throw new ProductNotFoundException("Product was not found");
             }
             if (!string.IsNullOrWhiteSpace(command.Name) && command.Name != product.Name) 
             {

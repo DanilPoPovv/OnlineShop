@@ -30,7 +30,6 @@ namespace OnlineShop.Mediator.Handlers.ShopHandler
                 Name = command.Name,
                 ManagerId = manager?.Id,
             };
-            Console.WriteLine(shop.Id);
             await _shopRepository.AddAsync(shop);
             if (manager != null)
             {

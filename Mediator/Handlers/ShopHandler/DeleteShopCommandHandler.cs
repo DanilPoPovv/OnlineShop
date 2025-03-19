@@ -18,7 +18,7 @@ namespace OnlineShop.Mediator.Handlers.ShopHandler
             var shop = await _shopRepository.GetByIdAsync(command.ShopId);
             if (shop == null)
             {
-                return false;
+                throw new ShopNotFoundException($"Shop with id {command.ShopId} was not found");
             }
             await _shopRepository.DeleteAsync(shop.Id);
             return true;
