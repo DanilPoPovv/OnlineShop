@@ -86,7 +86,7 @@
             <th>Manager</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody id="shopTableBody">
         @foreach (var shop in Model.Shops)
         {
             <tr>
@@ -116,9 +116,6 @@
     @if (User.IsInRole("Admin"))
     {
         <div class="d-flex gap-2">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createUserModal">
-                Create User
-            </button>
             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createShopModal">
                 Create Shop
             </button>

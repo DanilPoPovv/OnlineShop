@@ -9,7 +9,6 @@ namespace OnlineShop.Repositories.Interfaces
         Task<List<User>> GetAllShopEmployees(int shopId);
         Task<User> GetShopManagerByShopName(string shopName);
         Task<Shop> GetShopByName(string shopName);
-        Task<bool> DeleteShopProduct(Shop shop,string shopName);
         Task<Shop> GetShopByIdIncludeManager(int shopId);
     }
 }

@@ -13,7 +13,6 @@ namespace OnlineShop.Mediator.Handlers.ShopHandler
     {
         IShopRepository _shopRepository;
         IUserRepository _userRepository;
-
         public UpdateShopCommandHandler(IShopRepository shopRepository, IUserRepository userRepository)
         {
             _shopRepository = shopRepository;
@@ -59,7 +58,7 @@ namespace OnlineShop.Mediator.Handlers.ShopHandler
                 {
                     throw new UserNotFoundException($"Manager with name {newManagerName} was not found");
                 }
-                if (newManager.ShopId == null)
+                if (newManager.ShopId == null || newManager.ShopId == shop.Id)
                 {
                     DetachCurrentManager(shop);
                     newManager.ManagedShopId = shop.Id;

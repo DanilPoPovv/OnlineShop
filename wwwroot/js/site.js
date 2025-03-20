@@ -132,57 +132,56 @@ function deleteProduct(productId) {
 document.getElementById("createShopForm")?.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    let shopName = document.getElementById("createShopName").value;
-    let managerName = document.getElementById("createManagerName").value;
-    if (!shopName.trim() && !managerName.trim()) {
-        alert("Both fields are empty!");
-        return;
-    }
-
+    let shopName = document.getElementById("createShopName").value.trim();
+    let managerName = document.getElementById("createManagerName").value.trim();
+    let shopTable = document.getElementById("shopTableBody");
+    console.log(shopTable);
     fetch("/Shop/Create", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-
         body: JSON.stringify({
-            Name: shopName.trim(),
-            managerName: managerName.trim() || null
-        }),
-    })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Failed to create shop.");
-            }
-            return response.json();
+            name: shopName,
+            managerName: managerName || null
         })
+    })
+        .then(response => response.json())
         .then(data => {
             alert("Shop added successfully!");
 
-            // Закрытие модального окна
-            let modal = bootstrap.Modal.getInstance(document.getElementById("createShopModal"));
-            modal.hide();
 
-            // Очистка формы
-            document.getElementById("createShopForm").reset();
-
-            // Добавление в таблицу без перезагрузки (если нужно)
-            let table = document.querySelector("tbody"); // Найди таблицу магазинов
-            let row = table.insertRow();
+            // Добавляем новый магазин в таблицу магазинов
+            let shopTable = document.getElementById("shopTableBody");
+            let row = shopTable.insertRow();
             row.insertCell(0).textContent = data.id;
             row.insertCell(1).textContent = data.name;
-            let cell3 = row.insertCell(2);
-            let viewButton = document.createElement("a");
-            viewButton.href = `/Shop/Index/${data.id}`;
-            viewButton.classList.add("btn", "btn-info");
-            viewButton.textContent = "View Shop";
-            cell3.appendChild(viewButton);
+            row.insertCell(2).textContent = data.manager ? data.manager.name : "No Manager";
+
+            // Добавляем новый магазин в список магазинов при создании пользователя
+            let shopSelect = document.getElementById("shopName");
+            if (shopSelect) {  // Проверяем, существует ли select
+                let option = document.createElement("option");
+                option.value = data.id; // Используем id вместо имени
+                option.textContent = data.name;
+                shopSelect.appendChild(option);
+            }
+
+            document.getElementById("createShopForm").reset();
+
+            // Закрытие модального окна
+            var modalElement = document.getElementById("createShopModal");
+            if (modalElement) {
+                var modal = bootstrap.Modal.getInstance(modalElement);
+                if (modal) modal.hide();
+            }
         })
         .catch(error => {
             console.error("Error:", error);
             alert("Error adding shop.");
         });
 });
+
 document.addEventListener("DOMContentLoaded", function () {
     const createProductForm = document.getElementById("createProductForm");
     if (createProductForm && !createProductForm.hasAttribute('data-listener-attached')) {

@@ -22,7 +22,7 @@ namespace OnlineShop.Mediator.Handlers.ShopHandler
             }
             if (user.ShopId == command.ShopId || (user.ShopId != null && user.ManagedShopId != null))
             {
-                throw new Exception("User is already assigned to another shop");
+                throw new Exception($"User {command.UserName} is already assigned to another shop");
             }
             user.ShopId = command.ShopId;
             await _userRepository.UpdateAsync(user);
