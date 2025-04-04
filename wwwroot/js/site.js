@@ -1,5 +1,4 @@
-﻿
-document.getElementById("createUserForm")?.addEventListener("submit", function (event) {
+﻿document.getElementById("createUserForm")?.addEventListener("submit", function (event) {
     event.preventDefault();
 
     let userName = document.getElementById("userName").value;
@@ -19,23 +18,28 @@ document.getElementById("createUserForm")?.addEventListener("submit", function (
             shopName: shopName || null
         })
     })
-        .then(response => response.json())
-        .then(data => {
+    .then(response => response.json().then(data => ({ status: response.status, body: data })))
+    .then(({ status, body }) => {
+        if (status === 200) {
             alert("User added successfully!");
-
-            // Add new user to the table without reloading
+            
             let table = document.getElementById("usersTableBody");
             let row = table.insertRow();
-            row.insertCell(0).textContent = data.shop ? data.shop.name : "No Shop";
-            row.insertCell(1).textContent = data.name;
-            row.insertCell(2).textContent = data.role;
+            row.insertCell(0).textContent = body.shop ? body.shop.name : "No Shop";
+            row.insertCell(1).textContent = body.name;
+            row.insertCell(2).textContent = body.role;
             
             document.getElementById("createUserForm").reset();
             var modal = bootstrap.Modal.getInstance(document.getElementById("createUserModal"));
-            modal.hide(); 
-        })
-        .catch(error => console.error("Error:", error));
-
+            modal.hide();
+        } else {
+            alert("Error: " + (body.message || "An unexpected error occurred"));
+        }
+    })
+    .catch(error => {
+        alert("Error: " + error.message);
+        console.error("Error:", error.message);
+    });
 });
 function deleteUser(name) {
     if (!confirm("Are you sure you want to delete this user?")) {
@@ -62,7 +66,7 @@ function deleteUser(name) {
         })
         .catch(error => {
             console.error("Error:", error);
-            alert("Error deleting user.");
+            alert("Error deleting user.",error.message);
         });
 }
 function deleteShop(shopId) {
@@ -89,7 +93,7 @@ function deleteShop(shopId) {
         })
         .catch(error => {
             console.error("Error:", error);
-            alert("Error deleting shop.");
+            alert("Error deleting shop.",error.message);
         });
 }
 function editUser(id, name, password, role, shopName) {
@@ -126,7 +130,7 @@ function deleteProduct(productId) {
         })
         .catch(error => {
             console.error("Error:", error);
-            alert("Error deleting product.");
+            alert("Error deleting product.",error.message);
         });
 }
 document.getElementById("createShopForm")?.addEventListener("submit", function (event) {
@@ -178,7 +182,7 @@ document.getElementById("createShopForm")?.addEventListener("submit", function (
         })
         .catch(error => {
             console.error("Error:", error);
-            alert("Error adding shop.");
+            alert("Error adding shop.",error.message);
         });
 });
 

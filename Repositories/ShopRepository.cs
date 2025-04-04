@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OnlineShop.Data.DatabaseContext;
+using OnlineShop.Models.Dto;
 using OnlineShop.Models.POCO;
 using OnlineShop.Repositories.Interfaces;
 
@@ -13,9 +14,21 @@ namespace OnlineShop.Repositories
         {
             return await _dbSet.Where(s => s.Id == shopId).SelectMany(s => s.Products!).ToListAsync();
         }
-        public async Task<List<Shop>> GetAllShopByName(string shopName) 
+        public async Task<PaginatedList<Shop>> GetShopsWithPagination(int pageNumber, int pageSize, string? shopSearch)
         {
-            return await _dbSet.Where(s => s.Name.ToLower().Contains(shopName.ToLower())).Include(s => s.Manager).ToListAsync();
+            var query = _dbSet.AsQueryable();
+            if (!string.IsNullOrEmpty(shopSearch))
+            {
+                query = query.Where(s => s.Name.ToLower().Contains(shopSearch.ToLower()));
+            }
+
+            var count = await _context.Shops.CountAsync();
+            var shops = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return new PaginatedList<Shop>(shops, count, pageNumber, pageSize);
         }
         public async Task<List<User>> GetAllShopEmployees(int shopId) 
         {

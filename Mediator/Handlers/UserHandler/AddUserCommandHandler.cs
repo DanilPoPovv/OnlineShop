@@ -18,12 +18,17 @@ namespace OnlineShop.Mediator.Handlers.UserHandler
         public async Task<User> Handle(AddUserCommand command, CancellationToken cancellationToken)
         {
             var shop = !string.IsNullOrEmpty(command.ShopName) ? await _mediator.Send(new GetShopByNameQuery() { ShopName = command.ShopName }) : null;
+            if (shop?.ManagerId != null && command.Role == UserRole.Manager)
+            {
+                throw new Exception("Shop already has a manager");
+            }
             var user = new User
             {
                 Name = command.Name,
                 Password = command.Password,
                 Role = command.Role,
                 ShopId = shop?.Id,
+                ManagedShop = shop == null ? null : shop
             };
             await _userRepository.AddAsync(user);
             return user;

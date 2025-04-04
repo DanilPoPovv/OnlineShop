@@ -28,20 +28,23 @@
             <th>Shop Name</th>
             <th>Name</th>
             <th>Role</th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th>Actions</th>
+            }
         </tr>
     </thead>
-    <tbody id="usersTableBody">
-        @foreach (var user in Model.Users)
+    <tbody>
+        @foreach (var user in Model.Users.Items)
         {
             <tr>
                 <td>@user.Id</td>
                 <td>@user.Shop?.Name</td>
                 <td>@user.Name</td>
                 <td>@user.Role</td>
-                <td>
-                <td>
-                        @if (User.IsInRole("Admin"))
-                        {
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
                         <div class="d-flex gap-2">
                             <button type="button" class="btn btn-success"
                                     data-bs-toggle="modal"
@@ -51,12 +54,39 @@
                             </button>
                             <button class="btn btn-danger" onclick="deleteUser('@user.Name')">Delete</button>
                         </div>
-                        }
-                </td>
+                    </td>
+                }
             </tr>
         }
     </tbody>
 </table>
+
+<!-- Pagination for Users -->
+@if (Model.UsersTotalPages > 1)
+{
+    <nav>
+        <ul class="pagination">
+            @if (Model.UsersPageNumber > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?usersPageNumber=@(Model.UsersPageNumber - 1)&searchUsers=@Model.UserSearchTerm&searchShops=@Model.ShopSearchTerm&shopsPageNumber=@Model.ShopsPageNumber">Previous</a>
+                </li>
+            }
+            @for (int i = 1; i <= Model.UsersTotalPages; i++)
+            {
+                <li class="page-item @(Model.UsersPageNumber == i ? "active" : "")">
+                    <a class="page-link" href="?usersPageNumber=@i&searchUsers=@Model.UserSearchTerm&searchShops=@Model.ShopSearchTerm&shopsPageNumber=@Model.ShopsPageNumber">@i</a>
+                </li>
+            }
+            @if (Model.UsersPageNumber < Model.UsersTotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?usersPageNumber=@(Model.UsersPageNumber + 1)&searchUsers=@Model.UserSearchTerm&searchShops=@Model.ShopSearchTerm&shopsPageNumber=@Model.ShopsPageNumber">Next</a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
 
 @if (User.IsInRole("Admin"))
 {
@@ -65,6 +95,7 @@
     </button>
 }
 
+<!-- Search Form for Shops -->
 <!-- Search Form for Shops -->
 <h3>Search Shops</h3>
 <form method="get" action="@Url.Action("Index", "Home")">
@@ -75,7 +106,6 @@
         <button class="btn btn-primary" type="submit">Search</button>
     </div>
 </form>
-
 <!-- Shops Table -->
 <h3>Shops</h3>
 <table class="table">
@@ -84,20 +114,24 @@
             <th>Id</th>
             <th>Name</th>
             <th>Manager</th>
+            @if (User.IsInRole("Admin"))
+            {
+                <th>Actions</th>
+            }
         </tr>
     </thead>
-    <tbody id="shopTableBody">
-        @foreach (var shop in Model.Shops)
+    <tbody>
+        @foreach (var shop in Model.Shops.Items)
         {
             <tr>
                 <td>@shop.Id</td>
                 <td>@shop.Name</td>
                 <td>@(shop.Manager?.Name ?? "No manager")</td>
-                <td>
-                    <div class="d-flex gap-2">
-                        <a href="/Shop/Index/@shop.Id" class="btn btn-info">View Shop</a>
-                        @if (User.IsInRole("Admin"))
-                        {
+                @if (User.IsInRole("Admin"))
+                {
+                    <td>
+                        <div class="d-flex gap-2">
+                            <a href="/Shop/Index/@shop.Id" class="btn btn-info">View Shop</a>
                             <button type="button" class="btn btn-success"
                                     data-bs-toggle="modal"
                                     data-bs-target="#changeShopModal"
@@ -105,23 +139,47 @@
                                 Change Shop
                             </button>
                             <button class="btn btn-danger" onclick="deleteShop('@shop.Id')">Delete</button>
-                        }
-                    </div>
+                        </div>
+                    </td>
+                }
             </tr>
         }
     </tbody>
 </table>
 
+<!-- Pagination for Shops -->
+@if (Model.ShopsTotalPages > 1)
+{
+    <nav>
+        <ul class="pagination">
+            @if (Model.ShopsPageNumber > 1)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?shopsPageNumber=@(Model.ShopsPageNumber - 1)&searchUsers=@Model.UserSearchTerm&searchShops=@Model.ShopSearchTerm&usersPageNumber=@Model.UsersPageNumber">Previous</a>
+                </li>
+            }
+            @for (int i = 1; i <= Model.ShopsTotalPages; i++)
+            {
+                <li class="page-item @(Model.ShopsPageNumber == i ? "active" : "")">
+                    <a class="page-link" href="?shopsPageNumber=@i&searchUsers=@Model.UserSearchTerm&searchShops=@Model.ShopSearchTerm&usersPageNumber=@Model.UsersPageNumber">@i</a>
+                </li>
+            }
+            @if (Model.ShopsPageNumber < Model.ShopsTotalPages)
+            {
+                <li class="page-item">
+                    <a class="page-link" href="?shopsPageNumber=@(Model.ShopsPageNumber + 1)&searchUsers=@Model.UserSearchTerm&searchShops=@Model.ShopSearchTerm&usersPageNumber=@Model.UsersPageNumber">Next</a>
+                </li>
+            }
+        </ul>
+    </nav>
+}
 
-    @if (User.IsInRole("Admin"))
-    {
-        <div class="d-flex gap-2">
-            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createShopModal">
-                Create Shop
-            </button>
-        </div>
-    }
-
+@if (User.IsInRole("Admin"))
+{
+    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#createShopModal">
+        Create Shop
+    </button>
+}
 
 
 <!-- MODAL WINDOW FOR ADDING USERS -->

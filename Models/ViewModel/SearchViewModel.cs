@@ -1,4 +1,5 @@
-﻿using OnlineShop.Models.POCO;
+﻿using OnlineShop.Models.Dto;
+using OnlineShop.Models.POCO;
 
 namespace OnlineShop.Models.ViewModel
 {
@@ -6,7 +7,11 @@ namespace OnlineShop.Models.ViewModel
     {
         public string? UserSearchTerm { get; set; }
         public string? ShopSearchTerm { get; set; }
-        public List<User> Users { get; set; } = new List<User>();
-        public List<Shop> Shops { get; set; } = new List<Shop>();
+        public PaginatedList<User> Users { get; set; }
+        public PaginatedList<Shop> Shops { get; set; }
+        public int UsersPageNumber { get; set; }
+        public int UsersTotalPages { get; set; }    
+        public int ShopsPageNumber { get; set; }
+        public int ShopsTotalPages { get; set; }
     }
 }

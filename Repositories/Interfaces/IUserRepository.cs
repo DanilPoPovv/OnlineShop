@@ -1,4 +1,5 @@
-﻿using OnlineShop.Models.POCO;
+﻿using OnlineShop.Models.Dto;
+using OnlineShop.Models.POCO;
 
 namespace OnlineShop.Repositories.Interfaces
 {
@@ -7,5 +8,6 @@ namespace OnlineShop.Repositories.Interfaces
         Task<User> GetUserByUserName(string userName);
         Task<List<User>> GetAllUsersByName(string userName);
         Task<User> GetUserByIdIncludeShop(int id);
+        Task<PaginatedList<User?>> GetUsersWithPagination(int pageNumber, int pageSize, string? userSearch);
     }
 }

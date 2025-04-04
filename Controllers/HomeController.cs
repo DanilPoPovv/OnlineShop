@@ -5,6 +5,7 @@ using OnlineShop.Mediator.Search.SearchQueries;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 
+
 namespace OnlineShop.Controllers
 {
     [Authorize]
@@ -17,17 +18,27 @@ namespace OnlineShop.Controllers
             _mediator = mediator;
             _logger = logger;
         }
-        public async Task<IActionResult> Index(string? searchUsers, string? searchShops)
+        public async Task<IActionResult> Index(string? searchUsers, string? searchShops,int usersPageNumber = 1,int shopsPageNumber = 1,int pageSize = 7)
         {
-            var searchQuery = new SearchShopsAndUsersQuery
-            {
-                Username = searchUsers,
-                ShopName = searchShops
-            };
-            SearchViewModel searchResults = await _mediator.Send(searchQuery);
-            _logger.LogInformation("User searched for {searchUsers} and {searchShops}", searchUsers, searchShops);
-            return View(searchResults);
+            var userQuery = new GetUsersWithPaginationQuery(usersPageNumber, pageSize, searchUsers);
+            var shopQuery = new GetShopsWithPaginationQuery(shopsPageNumber, pageSize, searchShops); 
 
+            var users = await _mediator.Send(userQuery);
+            var shops = await _mediator.Send(shopQuery);
+
+            var searchResults = new SearchViewModel
+            {
+                Users = users,
+                Shops = shops,
+                UserSearchTerm = searchUsers,
+                ShopSearchTerm = searchShops,
+                UsersPageNumber = usersPageNumber,
+                UsersTotalPages = users.TotalPages,
+                ShopsPageNumber = shopsPageNumber,
+                ShopsTotalPages = shops.TotalPages
+            };
+
+            return View(searchResults);
         }
     }
 }

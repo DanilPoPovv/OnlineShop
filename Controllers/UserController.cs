@@ -32,7 +32,7 @@ namespace OnlineShop.Controllers
             catch(Exception ex)
             {
                 _logger.LogError(ex, "Error adding user");
-                return BadRequest("Error adding user");
+                return BadRequest(new { message = ex.Message });
             }
         }
         [HttpDelete]
@@ -47,7 +47,7 @@ namespace OnlineShop.Controllers
             catch(Exception ex)
             {
                 _logger.LogError(ex, "Error deleting user with name {id}", command.UserName);
-                return BadRequest("Error deleting user");
+                return BadRequest(new { message = "Error deleting user" });
             }
         }
         [HttpPut]
@@ -62,7 +62,7 @@ namespace OnlineShop.Controllers
             catch(Exception ex)
             {
                 _logger.LogError(ex, "Error updating user with name {id}", command.Name);
-                return BadRequest("Error updating user");
+                return BadRequest(new { error = "Error updating user" });
             }
         }
     }
