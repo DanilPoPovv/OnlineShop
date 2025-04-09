@@ -6,6 +6,8 @@
 <h2>@Model.Shop.Name</h2>
 <h2>Manager: @(Model.Shop.Manager != null ? Model.Shop.Manager.Name : "No Manager")</h2>
 <h4>Products</h4>
+<p>Products Count: @Model.Products.Items.Count()</p>
+
 <table class="table">
     <thead>
         <tr>
@@ -15,7 +17,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var product in Model.Products)
+        @foreach (var product in Model.Products.Items)
         {
             <tr>
                 <td>@product.Name</td>
@@ -43,6 +45,21 @@
         }
     </tbody>
 </table>
+<nav aria-label="Product pagination">
+    <ul class="pagination">
+        @for (int i = 1; i <= Model.Products.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.Products.PageIndex ? "active" : "")">
+                <a class="page-link" asp-action="ShopDetails"
+                   asp-route-id="@Model.Shop.Id"
+                   asp-route-productsPageNumber="@i"
+                   asp-route-usersPageNumber="@Model.Users.PageIndex"
+                   asp-route-productSearch="">@i</a>
+            </li>
+        }
+    </ul>
+</nav>
+
 
 @* Кнопка добавления продукта видна только если текущий пользователь является менеджером данного магазина *@
 @if (User.Identity?.IsAuthenticated == true &&
@@ -63,7 +80,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var user in Model.Users)
+        @foreach (var user in Model.Users.Items)
         {
             <tr>
                 <td>@user.Name</td>
@@ -81,6 +98,20 @@
         Add seller
     </button>
 }
+<nav aria-label="User pagination">
+    <ul class="pagination">
+        @for (int i = 1; i <= Model.Users.TotalPages; i++)
+        {
+            <li class="page-item @(i == Model.Users.PageIndex ? "active" : "")">
+                <a class="page-link" asp-action="ShopDetails"
+                   asp-route-id="@Model.Shop.Id"
+                   asp-route-productsPageNumber="@Model.Products.PageIndex"
+                   asp-route-usersPageNumber="@i"
+                   asp-route-userSearch="">@i</a>
+            </li>
+        }
+    </ul>
+</nav>
 
 <!-- Модальное окно для создания продукта -->
 <div class="modal fade" id="createProductModal" tabindex="-1" aria-labelledby="createProductModalLabel" aria-hidden="true">

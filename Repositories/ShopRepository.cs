@@ -10,10 +10,30 @@ namespace OnlineShop.Repositories
     {
         public ShopRepository(ApplicationDbContext context) : base(context) { }
 
-        public async Task<List<Product>> GetAllShopProducts(int shopId) 
+        public async Task<PaginatedList<Product>> GetShopProducts(int shopId, int pageNumber, int pageSize, string? productSearch)
         {
-            return await _dbSet.Where(s => s.Id == shopId).SelectMany(s => s.Products!).ToListAsync();
+            var query = _dbSet
+                .Where(s => s.Id == shopId) // Фильтрация по магазину
+                .SelectMany(s => s.Products) // Разворачиваем коллекцию товаров
+                .AsQueryable();
+
+            if (!string.IsNullOrEmpty(productSearch))
+            {
+                query = query.Where(p => p.Name.ToLower().Contains(productSearch.ToLower()));
+            }
+
+            var totalCount = await query.CountAsync(); // Общее количество отфильтрованных товаров
+
+            var products = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            Console.WriteLine($"Total products: {query.Count()}");
+
+            return new PaginatedList<Product>(products, totalCount, pageNumber, pageSize);
         }
+
         public async Task<PaginatedList<Shop>> GetShopsWithPagination(int pageNumber, int pageSize, string? shopSearch)
         {
             var query = _dbSet.AsQueryable();
@@ -49,6 +69,24 @@ namespace OnlineShop.Repositories
         {
             var shop = await _dbSet.Include(s => s.Manager).Include(s => s.Products).FirstOrDefaultAsync(s => s.Id == shopId);
             return shop!;
+        }
+        public async Task<PaginatedList<User?>> GetShopUsers(int shopId, int pageNumber, int pageSize, string? userSearch)
+        {
+            var query = _dbSet
+            .Where(s => s.Id == shopId) // Фильтрация по магазину
+            .SelectMany(s => s.Employees) // Разворачиваем коллекцию товаров
+            .AsQueryable();
+
+            if (!string.IsNullOrEmpty(userSearch))
+            {
+                query = query.Where(u => u.Name.ToLower().Contains(userSearch.ToLower()));
+            }
+            var totalCount = await query.CountAsync();
+
+            var users = await query.Skip((pageNumber - 1) * pageSize)
+                                   .Take(pageSize)
+                                   .ToListAsync();
+            return new PaginatedList<User?>(users, totalCount, pageNumber, pageSize);
         }
     }
 }

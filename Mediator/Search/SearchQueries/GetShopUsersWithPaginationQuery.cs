@@ -4,12 +4,11 @@ using OnlineShop.Models.POCO;
 
 namespace OnlineShop.Mediator.Search.SearchQueries
 {
-    public class GetShopProductsQuery : IRequest<PaginatedList<Product>>
+    public class GetShopUsersQuery : IRequest<PaginatedList<User>>
     {
-        public int ShopId { get; set; }
+        public int ShopId { get; set; } 
         public int PageNumber { get; set; }
         public int PageSize { get; set; }
-        public string? ProductSearch { get; set; }
-
+        public string? UserSearch { get; set; }
     }
 }

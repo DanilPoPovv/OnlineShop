@@ -9,5 +9,6 @@ namespace OnlineShop.Repositories.Interfaces
         Task<List<User>> GetAllUsersByName(string userName);
         Task<User> GetUserByIdIncludeShop(int id);
         Task<PaginatedList<User?>> GetUsersWithPagination(int pageNumber, int pageSize, string? userSearch);
+        Task<PaginatedList<User?>> GetShopUsers(int shopId, int pageNumber, int pageSize, string? userSearch);
     }
 }
